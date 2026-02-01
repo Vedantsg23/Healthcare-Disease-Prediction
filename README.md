@@ -51,6 +51,33 @@ Early detection can help patients take preventive measures.
 This project predicts whether a patient is likely to have diabetes based on health attributes.
 
 ---
+---
+
+## ⚙️ How It Works (Project Workflow)
+
+This project follows a complete end-to-end Machine Learning pipeline:
+
+```text
+[Diabetes Dataset CSV]
+        ↓
+[Data Cleaning + Validation]
+        ↓
+[EDA (Charts + Correlation Analysis)]
+        ↓
+[Feature Scaling (StandardScaler)]
+        ↓
+[Model Training (Logistic Regression, Random Forest)]
+        ↓
+[Evaluation (Accuracy, Recall, ROC-AUC)]
+        ↓
+[Save Model (.pkl using joblib)]
+        ↓
+[Streamlit Web App (User Input → Prediction)]
+
+
+
+
+
 
 ## 🧾 Dataset Information
 Dataset: **Diabetes Dataset (UCI / Kaggle)**  
