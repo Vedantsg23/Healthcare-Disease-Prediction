@@ -1,3 +1,21 @@
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-blue" />
+  <img src="https://img.shields.io/badge/Streamlit-App-red" />
+  <img src="https://img.shields.io/badge/Machine%20Learning-Classification-green" />
+  <img src="https://img.shields.io/badge/Scikit--learn-ML-orange" />
+  <img src="https://img.shields.io/badge/Status-Active-success" />
+</p>
+
+
+
+
+
+
+
+
+
+
+
 # 🩺 Diabetes Risk Analyzer (Healthcare Predictive Analytics)
 
 A complete **Machine Learning + Streamlit** project that predicts the **risk of Diabetes** using patient medical data.
