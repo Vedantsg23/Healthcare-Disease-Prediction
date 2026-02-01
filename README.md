@@ -5,6 +5,11 @@ This project includes **EDA, data normalization, model training, evaluation**, a
 
 ---
 
+## 🌐 Live Demo
+✅ https://healthcare-disease-prediction-c9wdfwculfhbgue7guecfu.streamlit.app/
+
+
+
 ## 🌟 Project Highlights
 ✅ Beginner-friendly project with full steps  
 ✅ End-to-end ML pipeline (dataset → model → app)  
