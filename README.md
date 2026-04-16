@@ -2,8 +2,8 @@
 
 ![Hero Banner](static/images/hero.png)
 
-> **Live Preview (Professional Edition):** [Click here to view live site!](https://healthcare-disease-prediction.vercel.app) *(Update with your specific Vercel URL)*
-> **Live Preview (Classic Streamlit Version):** [Click here to view live site!](https://healthcare-disease-prediction.streamlit.app/) *(Update with your specific Streamlit URL)*
+> **Live Preview (Professional Edition):** [Click here to view the live site!](https://healthcare-disease-prediction-git-main-vedantsg23s-projects.vercel.app/)
+> **Live Preview (Classic Streamlit Version):** [Click here to view the live site!](https://healthcare-disease-prediction.streamlit.app/) *(Update with your specific Streamlit URL)*
 
 Welcome to the **Healthcare Disease Prediction** repository! This project is an end-to-end Machine Learning web application designed to predict the risk of early-stage diabetes based on patient diagnostic information. 
 
