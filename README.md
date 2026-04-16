@@ -2,7 +2,7 @@
 
 ![Hero Banner](static/images/hero.png)
 
-> **Live Preview (Professional Edition):** [Click here to view live site!](https://healthcare-disease-prediction.onrender.com) *(Update with your specific Render URL)*
+> **Live Preview (Professional Edition):** [Click here to view live site!](https://healthcare-disease-prediction.vercel.app) *(Update with your specific Vercel URL)*
 > **Live Preview (Classic Streamlit Version):** [Click here to view live site!](https://healthcare-disease-prediction.streamlit.app/) *(Update with your specific Streamlit URL)*
 
 Welcome to the **Healthcare Disease Prediction** repository! This project is an end-to-end Machine Learning web application designed to predict the risk of early-stage diabetes based on patient diagnostic information. 
@@ -78,14 +78,12 @@ streamlit run app.py
 *   This will automatically boot up the Streamlit dashboard on your local machine.
 
 ### Step 5: Deploy the Professional Flask Website to the Cloud!
-Want to share your beautiful professional interface with the world? You can deploy it for **FREE** using Render.com:
-1. Create a free account on [Render.com](https://render.com/) and connect your GitHub.
-2. Click **New +** and select **Web Service**.
-3. Select your `Healthcare-Disease-Prediction` repository.
-4. Render will automatically detect the Python environment.
-5. Set the **Build Command** to: `pip install -r requirements.txt`
-6. Set the **Start Command** to: `gunicorn flask_app:app`
-7. Click Deploy! Render will give you a live URL (e.g., `https://healthcare-disease-prediction.onrender.com`) that anyone can access!
+Want to share your beautiful professional interface with the world? I recommend **Vercel** because it requires absolutely **NO CREDIT CARD** and is 100% free!
+1. Go to [Vercel.com](https://vercel.com/) and sign up with your GitHub account.
+2. Click **Add New...** and select **Project**.
+3. Import your `Healthcare-Disease-Prediction` repository.
+4. Leave all settings exactly as default. Vercel will automatically read the completely configured `vercel.json` file I prepared for you!
+5. Click **Deploy**. In about 1 minute, Vercel will give you a completely free live URL!
 
 ---
 
