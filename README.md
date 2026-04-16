@@ -2,7 +2,8 @@
 
 ![Hero Banner](static/images/hero.png)
 
-> **Live Preview (Streamlit version):** [Click here to view live site!](http://127.0.0.1:5000/) *(Note: replace with your actual URL if different)*
+> **Live Preview (Professional Edition):** [Click here to view live site!](https://healthcare-disease-prediction.onrender.com) *(Update with your specific Render URL)*
+> **Live Preview (Classic Streamlit Version):** [Click here to view live site!](https://healthcare-disease-prediction.streamlit.app/) *(Update with your specific Streamlit URL)*
 
 Welcome to the **Healthcare Disease Prediction** repository! This project is an end-to-end Machine Learning web application designed to predict the risk of early-stage diabetes based on patient diagnostic information. 
 
@@ -63,7 +64,7 @@ pip install -r requirements.txt
 ### Step 4: Run the Application!
 This project contains TWO fully functional architectures!
 
-**To run the massively upgraded Flask/HTML Architecture:**
+**To run the massively upgraded Flask/HTML Architecture Locally:**
 ```bash
 python flask_app.py
 ```
@@ -75,6 +76,16 @@ python flask_app.py
 streamlit run app.py
 ```
 *   This will automatically boot up the Streamlit dashboard on your local machine.
+
+### Step 5: Deploy the Professional Flask Website to the Cloud!
+Want to share your beautiful professional interface with the world? You can deploy it for **FREE** using Render.com:
+1. Create a free account on [Render.com](https://render.com/) and connect your GitHub.
+2. Click **New +** and select **Web Service**.
+3. Select your `Healthcare-Disease-Prediction` repository.
+4. Render will automatically detect the Python environment.
+5. Set the **Build Command** to: `pip install -r requirements.txt`
+6. Set the **Start Command** to: `gunicorn flask_app:app`
+7. Click Deploy! Render will give you a live URL (e.g., `https://healthcare-disease-prediction.onrender.com`) that anyone can access!
 
 ---
 
