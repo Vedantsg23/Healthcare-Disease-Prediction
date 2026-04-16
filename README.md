@@ -2,7 +2,7 @@
 
 ![Hero Banner](static/images/hero.png)
 
-> **Live Preview (Streamlit version):** [Click here to view live site!](https://healthcare-disease-prediction.streamlit.app/) *(Note: replace with your actual URL if different)*
+> **Live Preview (Streamlit version):** [Click here to view live site!](http://127.0.0.1:5000/) *(Note: replace with your actual URL if different)*
 
 Welcome to the **Healthcare Disease Prediction** repository! This project is an end-to-end Machine Learning web application designed to predict the risk of early-stage diabetes based on patient diagnostic information. 
 
