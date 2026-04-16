@@ -133,7 +133,58 @@ function showTreatment(symptomKey) {
     document.getElementById('treat-life').innerText = data.life;
 }
 
-// Chatbot Logic
+// --- ADVANCED MEDICAL KNOWLEDGE BASE CHATBOT ---
+const advancedKnowledgeBase = [
+    {
+        keywords: ["metformin", "medicine", "medication", "pill", "drug", "treatment"],
+        response: "<b>Metformin</b> is usually the first medication prescribed for Type 2 diabetes. It works primarily by lowering glucose production in the liver and improving your body's sensitivity to insulin so it uses blood sugar more effectively. Other common medications include <b>Sulfonylureas</b> (which help secrete more insulin) and <b>GLP-1 Receptor Agonists</b> (which slow digestion and lower blood sugar). <i>Always consult your doctor for precise dosages.</i>"
+    },
+    {
+        keywords: ["insulin", "injection", "shot", "pump"],
+        response: "<b>Insulin Therapy</b> is required for all individuals with Type 1 diabetes and many with advanced Type 2 diabetes. Because the stomach would break down insulin pills, it must be injected or pumped. There are many types: rapid-acting (taken before meals) and long-acting (to keep levels steady all day). Dosing is highly individualized based on carbohydrate intake and current blood sugar levels."
+    },
+    {
+        keywords: ["symptom", "sign", "feel", "warning"],
+        response: "Common warning symptoms of diabetes include:<br>1. <b>Polyuria</b> (frequent urination)<br>2. <b>Polydipsia</b> (excessive thirst)<br>3. <b>Polyphagia</b> (extreme hunger)<br>4. Unexplained weight loss<br>5. Extreme fatigue and blurry vision.<br>If you experience these, a fasting blood glucose test or A1C test is highly recommended."
+    },
+    {
+        keywords: ["diet", "food", "eat", "meal", "sugar", "carb", "carbohydrate", "keto"],
+        response: "A proper diabetic diet focuses on <b>low glycemic index</b> foods that don't spike blood sugar. <ul><li><b>Eat:</b> Leafy greens, whole grains (brown rice, oats), legumes, nuts, and lean proteins (chicken, fish).</li><li><b>Avoid:</b> Refined carbohydrates (white bread, pasta), sugary sodas, baked goods, and heavily processed meals.</li></ul> Portion control and counting carbohydrates are strictly necessary for insulin management."
+    },
+    {
+        keywords: ["exercise", "workout", "gym", "run", "sport"],
+        response: "Exercise makes your cells more sensitive to insulin, meaning your body needs less insulin to process sugar! <b>Aerobic exercises</b> (brisk walking, swimming, cycling) and <b>Resistance training</b> (weightlifting) are both highly recommended. Aim for at least 150 minutes of moderate-intensity aerobic activity per week."
+    },
+    {
+        keywords: ["type 1", "type1", "juvenile"],
+        response: "<b>Type 1 Diabetes</b> is an autoimmune condition where the body's immune system attacks and destroys the insulin-producing beta cells in the pancreas. It is usually diagnosed in children and young adults, and patients absolutely require lifelong insulin therapy to survive."
+    },
+    {
+        keywords: ["type 2", "type2", "adult"],
+        response: "<b>Type 2 Diabetes</b> is the most common form. It occurs when your body becomes resistant to insulin, and the pancreas cannot produce enough to overcome this resistance. It is heavily linked to lifestyle factors like obesity and lack of exercise, but it can often be managed or even reversed with diet, exercise, and medication."
+    },
+    {
+        keywords: ["gestational", "pregnancy", "pregnant"],
+        response: "<b>Gestational Diabetes</b> occurs during pregnancy when hormones block the action of the mother's insulin. Usually, blood sugar levels return to normal after delivery, but it increases the risk that both the mother and child could develop Type 2 diabetes later in life."
+    },
+    {
+        keywords: ["a1c", "blood sugar", "glucose", "level", "normal", "range", "test"],
+        response: "<b>Blood Sugar Ranges:</b><br>- A normal Fasting Blood Sugar is under <b>100 mg/dL</b>.<br>- An <b>A1C test</b> measures your average blood sugar over 2-3 months. Normal A1C is below 5.7%. Prediabetes is 5.7% to 6.4%, and Diabetes is diagnosed at an A1C of <b>6.5% or higher</b>."
+    },
+    {
+        keywords: ["neuropathy", "nerve", "tingl", "numb", "foot", "feet"],
+        response: "<b>Diabetic Neuropathy</b> is nerve damage caused by prolonged high blood sugar. It most commonly affects the legs and feet, causing tingling, numbness, or pain. Daily foot inspections and strict glucose control are necessary to prevent severe complications like ulcers or amputations."
+    },
+    {
+        keywords: ["model", "predict", "how", "algorithm", "machine learning", "ai"],
+        response: "Our <b>Machine Learning Model</b> was trained on historical datasets containing diagnostic measurements (like BMI, age, and insulin levels) of thousands of patients. By finding complex mathematical correlations between these variables, the Random Forest/XGBoost backend can calculate the statistical probability that your inputs match a diabetic profile."
+    },
+    {
+        keywords: ["hi", "hello", "hey", "help"],
+        response: "Hello! I am your Advanced AI Healthcare Assistant. You can ask me highly detailed medical questions about diabetes types, medications (like Metformin), symptoms, diet plans, normal blood sugar ranges, or how to prevent diabetes."
+    }
+];
+
 function sendChatMessage() {
     const input = document.getElementById('chat-input');
     const msg = input.value.trim();
@@ -147,32 +198,34 @@ function sendChatMessage() {
     userDiv.innerText = msg;
     chatWindow.appendChild(userDiv);
     input.value = '';
-
     chatWindow.scrollTop = chatWindow.scrollHeight;
 
-    // Bot response (Rule-based)
+    // Advanced NLP-Lite Matching Logic
     setTimeout(() => {
         const botDiv = document.createElement('div');
         botDiv.className = 'message bot-message';
         
         const lowerMsg = msg.toLowerCase();
-        let response = "I specialize in answering questions about standard diabetes medications, symptoms, and lifestyle changes. Try asking about a specific symptom or medicine!";
+        let bestMatchResponse = "I'm sorry, I don't have deeply detailed information on that specific topic. Could you try asking about diabetes symptoms, specific medications (like Insulin or Metformin), diet plans, blood sugar ranges, or the differences between Type 1 and Type 2?";
         
-        if (lowerMsg.includes('metformin')) {
-            response = "Metformin is a first-line medication for type 2 diabetes. It works by reducing glucose production in the liver. A common starting dose is 500mg daily, but this must be directed by a doctor.";
-        } else if (lowerMsg.includes('insulin')) {
-            response = "Insulin therapy replaces or supplements the body's natural insulin. Dosages are highly individualized and calculated based on blood sugar levels and carbohydrate intake.";
-        } else if (lowerMsg.includes('symptom')) {
-            response = "Common symptoms include excessive thirst, frequent urination, unexplained weight loss, and fatigue. You can explore these interactively in the 'Intelligent Symptom Guide' section just above!";
-        } else if (lowerMsg.includes('diet') || lowerMsg.includes('food')) {
-            response = "A balanced diet high in fiber, lean proteins, and complex carbs (like whole grains) is recommended. Processed sugars and refined carbs should be strictly limited.";
-        } else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) {
-            response = "Hello! Do you have any questions regarding diabetes symptoms, modern medical treatments, or how the machine learning model works?";
-        } else if (lowerMsg.includes('model') || lowerMsg.includes('predict')) {
-            response = "Our backend uses a Machine Learning model trained on clinical patient data. By adjusting your values in the left sidebar and clicking 'Predict Risk', it will instantly calculate your probability of having diabetes based on historical patterns.";
-        }
+        let highestScore = 0;
+        
+        // Score each knowledge node based on keyword hits
+        advancedKnowledgeBase.forEach(knowledge => {
+            let score = 0;
+            knowledge.keywords.forEach(keyword => {
+                if (lowerMsg.includes(keyword)) {
+                    score += 1;
+                }
+            });
+            
+            if (score > highestScore) {
+                highestScore = score;
+                bestMatchResponse = knowledge.response;
+            }
+        });
 
-        botDiv.innerHTML = response; // using innerHTML to allow basic bolding if needed
+        botDiv.innerHTML = bestMatchResponse; 
         chatWindow.appendChild(botDiv);
         chatWindow.scrollTop = chatWindow.scrollHeight;
 
