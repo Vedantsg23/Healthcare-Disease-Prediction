@@ -61,16 +61,20 @@ pip install -r requirements.txt
 ```
 
 ### Step 4: Run the Application!
-This project runs entirely on a modern **Flask** backend with a dynamic HTML/CSS frontend.
+This project contains TWO fully functional architectures!
 
-Start the application by running:
+**To run the massively upgraded Flask/HTML Architecture:**
 ```bash
-python app.py
+python flask_app.py
 ```
-
 *   You will see an output saying: `Running on http://127.0.0.1:5000`
-*   **Open your browser** (Chrome, Safari, Edge) and type `http://127.0.0.1:5000` in the address bar.
-*   **Congratulations!** You are now running an AI-powered healthcare dashboard!
+*   **Open your browser** (Chrome, Safari, Edge) and type `http://127.0.0.1:5000` in the address bar to view the professional web application.
+
+**To run the classic Streamlit Architecture (Cloud Deployment Ready):**
+```bash
+streamlit run app.py
+```
+*   This will automatically boot up the Streamlit dashboard on your local machine.
 
 ---
 
