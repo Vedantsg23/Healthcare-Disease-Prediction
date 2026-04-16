@@ -1,319 +1,48 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10%2B-blue" />
-  <img src="https://img.shields.io/badge/Streamlit-App-red" />
-  <img src="https://img.shields.io/badge/Machine%20Learning-Classification-green" />
-  <img src="https://img.shields.io/badge/Scikit--learn-ML-orange" />
-  <img src="https://img.shields.io/badge/Status-Active-success" />
-</p>
+# 🩺 Diabetes Risk Analyzer (Professional Edition)
 
+![Hero Banner](static/images/hero.png)
 
+A machine learning-powered web application for early diabetes detection, built entirely on a custom Flask backend with a beautiful, professional, glassmorphism-inspired HTML/CSS interface.
 
+## ✨ Features
 
+- **Predictive Analytics Engine**: Employs a trained machine learning model (`RandomForest`, `XGBoost`, etc.) to process clinical variables and output a highly accurate risk percentage.
+- **Dynamic Medical Intelligence**: Features a sleek, interactive symptom checker. Click on symptoms like *Extreme Fatigue* or *Unexplained Weight Loss* to slide open personalized panels detailing modern medical approaches (such as Metformin, SGLT2 inhibitors) and essential lifestyle changes.
+- **Embedded AI Chatbot**: A native, responsive healthcare assistant ready to explain the machine learning model, dive deeper into specific medications, or break down the nuances of diabetes diets.
+- **Premium Aesthetics**: Utilizes cutting-edge Vanilla CSS involving deep gradient blending, absolute positioning, custom UI spinners, and Google's `Inter` typeface for an enterprise-level feel.
+- **Result Insights**: When a high-risk prediction is made, the app dynamically generates a custom report directly within the prediction box, immediately presenting the specific symptoms to watch out for along with common medical treatments.
 
+## 🚀 Getting Started
 
+This application has been fully decoupled from older frameworks (no Streamlit required) and is now a robust, native **Flask** application.
 
+### Prerequisites
 
-
-
-
-# 🩺 Diabetes Risk Analyzer (Healthcare Predictive Analytics)
-
-A complete **Machine Learning + Streamlit** project that predicts the **risk of Diabetes** using patient medical data.
-This project includes **EDA, data normalization, model training, evaluation**, and an attractive **Streamlit Web App** for real-time predictions.
-
----
-
-## 🌐 Live Demo
-✅ https://healthcare-disease-prediction-c9wdfwculfhbgue7guecfu.streamlit.app/
-
-
-
-## 🌟 Project Highlights
-✅ Beginner-friendly project with full steps  
-✅ End-to-end ML pipeline (dataset → model → app)  
-✅ Data normalization using `StandardScaler`  
-✅ Classification models used:
-- Logistic Regression
-- Random Forest Classifier  
-✅ Evaluation using:
-- Accuracy
-- Recall
-- ROC-AUC  
-✅ Feature importance analysis  
-✅ Saved trained model (`.pkl`)  
-✅ Streamlit UI with sidebar inputs  
-
----
-
-## 🎯 Problem Statement
-Diabetes is a major health condition affecting millions of people.
-Early detection can help patients take preventive measures.
-This project predicts whether a patient is likely to have diabetes based on health attributes.
-
----
----
-
-## ⚙️ How It Works (Project Workflow)
-
-This project follows a complete end-to-end Machine Learning pipeline:
-
-```text
-[Diabetes Dataset CSV]
-        ↓
-[Data Cleaning + Validation]
-        ↓
-[EDA (Charts + Correlation Analysis)]
-        ↓
-[Feature Scaling (StandardScaler)]
-        ↓
-[Model Training (Logistic Regression, Random Forest)]
-        ↓
-[Evaluation (Accuracy, Recall, ROC-AUC)]
-        ↓
-[Save Model (.pkl using joblib)]
-        ↓
-[Streamlit Web App (User Input → Prediction)]
-
-
-
-
-
-
-## 🧾 Dataset Information
-Dataset: **Diabetes Dataset (UCI / Kaggle)**  
-File used: `data/diabetes.csv`
-
-Target column: **Outcome**
-- `0` → Not Diabetic
-- `1` → Diabetic
-
-Common features include:
-- Pregnancies
-- Glucose
-- Blood Pressure
-- Skin Thickness
-- Insulin
-- BMI
-- Diabetes Pedigree Function
-- Age
-
----
-
-## 📂 Project Folder Structure
-
-disease prediction/
-│── disease_project.ipynb
-│── requirements.txt
-│── README.md
-│── .gitignore
-│
-├── data/
-│ └── diabetes.csv
-│
-├── model/
-│ ├── diabetes_model.pkl
-│ ├── scaler.pkl
-│ └── training_columns.pkl
-│
-└── app/
-└── app.py
-
-
-
----
-
-## ⚙️ Installation & Setup (For Beginners)
-
-### ✅ Step 1: Install Python
-Download and install Python (3.10 or higher recommended)
-
-✅ Check python installation:
-```bash
-python --version
-
-✅ Step 2: Download / Clone this Repository
-Option A: Clone using Git (recommended)
-git clone https://github.com/YOUR_USERNAME/Healthcare-Disease-Prediction.git
-cd Healthcare-Disease-Prediction
-
-Option B: Download ZIP
-
-Open the GitHub repository
-
-Click Code → Download ZIP
-
-Extract the ZIP file
-
-Open folder in VS Code
-
-✅ Step 3: Install Dependencies
-
-Run this inside your project folder terminal:
-python -m pip install -r requirements.txt
-
-
-✅ How to Run the Project (Locally)
-✅ Option 1: Run Streamlit Web App (Recommended)
-
-python -m streamlit run app/app.py
-
-After running, it will show a link like:
-✅ http://localhost:8501
-
-Open it in your browser.
-
-✅ Option 2: Run Jupyter Notebook (Training + EDA)
-
-The notebook performs:
-✅ EDA
-✅ Model training
-✅ Evaluation
-✅ Feature importance
-✅ Model saving
-
-Open:
-
-disease_project.ipynb
-
-Run each cell step-by-step.
-
-
-📊 Model Training Details
-
-The following models were trained:
-
-Logistic Regression
-
-Random Forest Classifier
-
-The final model is saved in the model/ folder:
-
-diabetes_model.pkl
-
-scaler.pkl
-
-training_columns.pkl
-
-📈 Evaluation Metrics
-
-We evaluate using:
-
-✅ Accuracy – overall correctness
-✅ Recall – ability to detect diabetic cases (important in healthcare)
-✅ ROC-AUC – performance of probability-based predictions
-
-Also included:
-
-Confusion matrix
-
-Classification report
-
-
-
-⭐ Feature Importance
-
-Random Forest feature importance is used to identify the most impactful medical features such as:
-
-Glucose
-
-BMI
-
-Age
-
-Insulin
-
-This helps understand which attributes contribute more to diabetes prediction.
-
-🔐 Ethical Considerations & Patient Privacy
-
-This project is for educational purposes only.
-
-✅ Ethical handling ensured:
-
-Dataset contains no personal identity information (no name, phone, address, etc.)
-
-No patient data is stored by the app
-
-Model predictions are not medical diagnosis
-
-In real-world systems, privacy laws and secure data storage must be followed
-
-⚠️ Always consult a healthcare professional for actual diagnosis.
-
-🚀 Deployment (Streamlit Cloud)
-
-This project can be deployed on Streamlit Cloud.
-(Deployment steps provided below in this README.)
-
-👨‍💻 Author
-
-Vedant Gadage
-
-
-✅ Replace `YOUR_USERNAME` in the clone link with your GitHub username.
-
----
-
-# ✅ 2) Deploy on Streamlit Cloud (Step-by-step)
-
-## ✅ Step 1: Push these files on GitHub (Must)
-Your repo must contain:
-
-✅ `app/app.py`  
-✅ `requirements.txt`  
-✅ `model/diabetes_model.pkl`  
-✅ `model/scaler.pkl`  
-✅ `model/training_columns.pkl`
-
-(Your app needs the model files.)
-
----
-
-## ✅ Step 2: Open Streamlit Cloud
-1. Go to **Streamlit Community Cloud**
-2. Login using GitHub
-
----
-
-## ✅ Step 3: Create New App
-Click:
-
-✅ **New app**
-
-Then select:
-- ✅ Repository: your diabetes repo
-- ✅ Branch: `main`
-- ✅ Main file path:
-
-✅ `app/app.py`
-
-Then click:
-
-✅ **Deploy**
-
----
-
-## ✅ Step 4: If Streamlit Shows Error After Deployment
-Most common issue: Missing libraries  
-✅ Fix: ensure `requirements.txt` is present.
-
-If model missing:
-✅ ensure `model/*.pkl` files are uploaded in GitHub.
-
----
-
-## ✅ Step 5: Add Live Link in README
-Once deployed, Streamlit gives a link like:
-
-✅ `https://your-app-name.streamlit.app`
-
-Add it in README in “Live Demo” section.
-
-Then push update:
+Ensure you have Python installed. Install the dependencies via:
 
 ```bash
-git add README.md
-git commit -m "Added Streamlit live demo link"
-git push
+pip install -r requirements.txt
+```
 
+### Running the Application
 
+Simply run the Flask server:
+
+```bash
+python app.py
+```
+
+Then, open your web browser and navigate to:
+**http://127.0.0.1:5000**
+
+## 💻 Tech Stack
+- **Backend Model**: Python, scikit-learn, joblib, pandas
+- **Server API**: Flask
+- **Frontend Architecture**: HTML5, Vanilla JavaScript
+- **Styling**: Vanilla CSS3 (Custom Properties, Flexbox, CSS Grid)
+
+## ⚠️ Disclaimer
+This tool was developed strictly for educational machine learning purposes. It should **not** be used as a medical diagnosis tool. The information provided heavily utilizes generic medical databases, and users should always consult a licensed physician regarding actual diabetes diagnosis or medication dosages.
+
+---
+*Developed by Vedant Gadage | Healthcare Disease Prediction*

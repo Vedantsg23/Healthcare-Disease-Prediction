@@ -60,7 +60,22 @@ document.getElementById('prediction-form').addEventListener('submit', async func
             const alertBox = document.getElementById('alert-box');
             if (result.prediction === 1) {
                 alertBox.className = 'alert alert-danger';
-                alertBox.innerHTML = `<b>⚠️ High Risk Detected</b><br>Our ML model calculated a high probability of diabetes. Please consult a healthcare professional immediately for a clinical diagnosis.`;
+                alertBox.innerHTML = `
+                    <b>⚠️ High Risk Detected</b><br>
+                    Our ML model calculated a high probability of diabetes. Please consult a healthcare professional immediately for a clinical diagnosis.<hr style="border:0; border-top:1px solid #fca5a5; margin: 10px 0;">
+                    <b>🩺 Common Symptoms to Watch For:</b>
+                    <ul style="margin-left: 20px; font-size: 0.9em; margin-bottom: 10px;">
+                        <li>Excessive Thirst & Frequent Urination</li>
+                        <li>Unexplained Weight Loss & Fatigue</li>
+                        <li>Tingling or Numbness in Hands/Feet</li>
+                    </ul>
+                    <b>💊 Typical Medications (Medical Reference Only):</b>
+                    <ul style="margin-left: 20px; font-size: 0.9em;">
+                        <li><b>Metformin</b>: Often prescribed first to manage blood sugar levels.</li>
+                        <li><b>Insulin Therapy</b>: Used for deeper insulin resistance or Type 1 overlap.</li>
+                        <li><b>SGLT2 inhibitors</b>: Helps kidneys remove sugar from your body.</li>
+                    </ul>
+                `;
             } else {
                 alertBox.className = 'alert alert-success';
                 alertBox.innerHTML = `<b>✅ Low Risk</b><br>Your clinical inputs suggest a low risk. Maintain a healthy routine!`;
