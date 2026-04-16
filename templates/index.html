@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Diabetes Risk Analyzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/48/000000/stethoscope.png">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>🧾 Patient Inputs</h2>
+        <p>Provide medical details below to calculate risk instantly.</p>
+        
+        <form id="prediction-form">
+            <div class="input-group">
+                <label for="Pregnancies">Pregnancies <span id="val-preg" class="val-display">1</span></label>
+                <input type="range" id="Pregnancies" name="Pregnancies" min="0" max="20" value="1" oninput="updateVal('Pregnancies', 'val-preg')">
+            </div>
+
+            <div class="input-group">
+                <label for="Glucose">Glucose (mg/dL) <span id="val-gluc" class="val-display">120</span></label>
+                <input type="range" id="Glucose" name="Glucose" min="0" max="300" value="120" oninput="updateVal('Glucose', 'val-gluc')">
+            </div>
+
+            <div class="input-group">
+                <label for="BloodPressure">Blood Pressure (mm Hg) <span id="val-bp" class="val-display">70</span></label>
+                <input type="range" id="BloodPressure" name="BloodPressure" min="0" max="200" value="70" oninput="updateVal('BloodPressure', 'val-bp')">
+            </div>
+
+            <div class="input-group">
+                <label for="SkinThickness">Skin Thickness (mm) <span id="val-skin" class="val-display">20</span></label>
+                <input type="range" id="SkinThickness" name="SkinThickness" min="0" max="100" value="20" oninput="updateVal('SkinThickness', 'val-skin')">
+            </div>
+
+            <div class="input-group">
+                <label for="Insulin">Insulin (IU/mL) <span id="val-ins" class="val-display">80</span></label>
+                <input type="range" id="Insulin" name="Insulin" min="0" max="900" value="80" oninput="updateVal('Insulin', 'val-ins')">
+            </div>
+
+            <div class="input-group">
+                <label for="BMI">BMI <span id="val-bmi" class="val-display">25.0</span></label>
+                <input type="range" id="BMI" name="BMI" min="0.0" max="80.0" step="0.1" value="25.0" oninput="updateVal('BMI', 'val-bmi')">
+            </div>
+
+            <div class="input-group">
+                <label for="DiabetesPedigreeFunction">Diabetes Pedigree <span id="val-ped" class="val-display">0.5</span></label>
+                <input type="range" id="DiabetesPedigreeFunction" name="DiabetesPedigreeFunction" min="0.0" max="3.0" step="0.01" value="0.5" oninput="updateVal('DiabetesPedigreeFunction', 'val-ped')">
+            </div>
+
+            <div class="input-group">
+                <label for="Age">Age <span id="val-age" class="val-display">30</span></label>
+                <input type="range" id="Age" name="Age" min="1" max="120" value="30" oninput="updateVal('Age', 'val-age')">
+            </div>
+
+            <button type="submit" class="btn primary-btn">🔍 Predict Risk</button>
+        </form>
+    </div>
+
+    <div class="main-content">
+        <header class="hero-box">
+            <div class="hero-content">
+                <h1>Healthcare Predictive Analytics</h1>
+                <p>Advanced Machine Learning Dashboard for Early Diabetes Detection</p>
+            </div>
+            <!-- Added our stunning AI generated medical banner right into the hero -->
+            <img src="{{ url_for('static', filename='images/hero.png') }}" class="hero-bg" alt="Medical Theme Banner">
+        </header>
+
+        <div class="tabs">
+            <button class="tab-link active" onclick="openTab(event, 'Dashboard')">🔍 Dashboard</button>
+            <button class="tab-link" onclick="openTab(event, 'Medical')">⚕️ Interactive Medical Info</button>
+        </div>
+
+        <!-- TAB: Dashboard -->
+        <div id="Dashboard" class="tab-content active-tab">
+            <div class="dashboard-grid">
+                <div class="card result-card">
+                    <h3>🧠 Prediction Result</h3>
+                    <div id="loading" class="hidden">
+                        <div class="spinner"></div>
+                        <p>Analyzing health data...</p>
+                    </div>
+                    <div id="result-box" class="hidden">
+                        <h1 id="risk-score">0%</h1>
+                        <p class="subtitle">Calculated Risk Probability</p>
+                        <div id="alert-box" class="alert">
+                            <!-- Alert message goes here -->
+                        </div>
+                    </div>
+                    <div id="placeholder-box">
+                        <p>Adjust the clinical values in the sidebar and click <b>Predict Risk</b> to see results.</p>
+                    </div>
+                </div>
+
+                <div class="card educational-card">
+                    <h3>🩺 Understanding Diabetes</h3>
+                    <p>Watch this educational video to understand the mechanics of Diabetes.</p>
+                    <div class="video-container">
+                        <iframe width="100%" height="215" src="https://www.youtube.com/embed/wZAjVQWbMlE" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Medical Knowledge Base -->
+        <div id="Medical" class="tab-content" style="display:none;">
+            <div class="card checker-card">
+                <h3>🩺 Intelligent Symptom & Medication Guide</h3>
+                <p class="disclaimer"><b>Disclaimer:</b> Information is strictly for educational purposes and is NOT medical advice.</p>
+                <p>Select a common symptom below to read corresponding medical advice and standard standard medication references.</p>
+                
+                <div class="symptom-tags">
+                    <button class="tag" onclick="showTreatment('fatigue')">Extreme Fatigue</button>
+                    <button class="tag" onclick="showTreatment('thirst')">Excessive Thirst</button>
+                    <button class="tag" onclick="showTreatment('weight')">Unexplained Weight Loss</button>
+                    <button class="tag" onclick="showTreatment('numbness')">Tingling / Numbness</button>
+                </div>
+
+                <div id="treatment-info" class="treatment-info hidden">
+                    <h4 id="treat-title"></h4>
+                    <p id="treat-desc"></p>
+                    
+                    <div class="med-grid">
+                        <div class="med-box">
+                            <h5>💊 Medical Approach Reference</h5>
+                            <p id="treat-meds"></p>
+                        </div>
+                        <div class="med-box">
+                            <h5>🥦 Lifestyle Adjustments</h5>
+                            <p id="treat-life"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card chatbot-card">
+                <h3>🤖 Medical AI Assistant</h3>
+                <div class="chat-window" id="chat-window">
+                    <div class="message bot-message">Hello! I'm here to help answer questions about your prediction or symptoms. Try asking about "metformin", "diet", or "symptoms".</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Ask a healthcare question...">
+                    <button onclick="sendChatMessage()" class="btn secondary-btn">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Developed for Educational Healthcare ML Analytics | Designed with pure Vanilla CSS</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
