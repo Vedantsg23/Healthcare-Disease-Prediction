@@ -8,9 +8,14 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# Initialize Anthropic client
-# Set your ANTHROPIC_API_KEY in a .env file or environment variable
-client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY", "your_dummy_key_here"))
+# Initialize Anthropic client with error handling
+# This version handles potential library incompatibilities gracefully
+try:
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "your_dummy_key_here")
+    client = anthropic.Anthropic(api_key=api_key)
+except Exception as e:
+    print(f"Warning: AI Chatbot initialization failed. The app will work, but the chatbot might be unavailable. Error: {e}")
+    client = None
 
 @app.route('/')
 def index():
@@ -20,12 +25,18 @@ def index():
 @app.route('/api/chat', methods=['POST'])
 def chat():
     """Proxy route for the AI Chatbot to keep API keys secure."""
+    if not client:
+        return jsonify({
+            "error": "AI Chatbot is currently unavailable due to a configuration error.",
+            "details": "Check server-side logs for initialization errors."
+        }), 503
+
     try:
         data = request.json
         if not data or 'messages' not in data:
             return jsonify({"error": "Invalid request data"}), 400
 
-        # Optional: Add system prompt for consistent AI behavior
+        # System prompt for consistent AI behavior
         system_prompt = (
             "You are MediSense AI, a friendly and professional healthcare assistant. "
             "Your role is to answer questions about diseases, symptoms, and health. "
