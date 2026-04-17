@@ -9,7 +9,8 @@
 
 **An AI-powered healthcare web application that predicts diseases from symptoms, provides medicine recommendations, and includes a secure AI health chatbot.**
 
-[🌐 Live Demo](#) • [📖 Documentation](#how-it-works) • [🐛 Report Bug](https://github.com/Vedantsg23/Healthcare-Disease-Prediction/issues)
+[🌐 Live Demo](#) http://127.0.0.1:5000
+• [📖 Documentation](#how-it-works) • [🐛 Report Bug](https://github.com/Vedantsg23/Healthcare-Disease-Prediction/issues)
 
 </div>
 
