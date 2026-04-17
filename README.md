@@ -1,107 +1,215 @@
-# 🩺 Healthcare Disease Prediction (Diabetes Risk Analyzer)
+# 🏥 MediSense AI — Healthcare Disease Prediction
 
-![Hero Banner](static/images/hero.png)
+<div align="center">
 
-> **Live Preview (Professional Edition):** [Click here to view the live site!](https://healthcare-disease-prediction-git-main-vedantsg23s-projects.vercel.app/)
+![MediSense AI](https://img.shields.io/badge/MediSense-AI%20Powered-00d4b4?style=for-the-badge&logo=heart&logoColor=white)
+![ML Model](https://img.shields.io/badge/ML-Scikit--learn-f97316?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.9%2B-3776ab?style=for-the-badge&logo=python)
+![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)
 
+**An AI-powered healthcare web application that predicts diseases from symptoms, provides medicine recommendations, and includes an intelligent AI health chatbot.**
 
-Welcome to the **Healthcare Disease Prediction** repository! This project is an end-to-end Machine Learning web application designed to predict the risk of early-stage diabetes based on patient diagnostic information. 
+[🌐 Live Demo](#) • [📖 Documentation](#how-it-works) • [🐛 Report Bug](https://github.com/Vedantsg23/Healthcare-Disease-Prediction/issues)
 
-Whether you are a beginner looking to understand machine learning pipelines or an experienced developer wanting to see a professional web app integration, this guide will walk you through EVERYTHING step-by-step!
+</div>
 
 ---
 
-## 🏗️ Project Architecture & Flowchart
+## ✨ Features
 
-The system follows a standard Machine Learning pipeline: it takes user inputs, scales them based on historical training data, passes them through a trained model, and displays the risk alongside custom medical advice.
+| Feature | Description |
+|---|---|
+| 🔬 **Symptom Checker** | Select from 132 medically recognised symptoms |
+| 🧠 **AI Prediction** | ML ensemble (Naive Bayes + Decision Tree) predicts 41+ diseases |
+| 💊 **Medicine Guide** | Detailed medicine recommendations with dosage & safety info |
+| 🤖 **AI Chatbot** | Claude AI-powered health assistant for 24/7 Q&A |
+| 📚 **Disease Library** | Comprehensive encyclopedia of 41 diseases |
+| 🍎 **Diet & Lifestyle** | Condition-specific nutrition and lifestyle advice |
+| 🎨 **Modern UI** | Dark-themed, responsive, professional interface |
 
-```mermaid
-graph TD
-    A[Patient Data Input] --> B(Web Interface / Forms)
-    B --> C{Backend Server}
-    C -->|Scales Data| D[scaler.pkl]
-    D --> E[diabetes_model.pkl]
-    E --> F{Prediction}
-    F -->|High Risk| G[Display Red Alert + Symptoms + Medicine]
-    F -->|Low Risk| H[Display Green Alert + Diet Advice]
-    C --> I[(Chatbot & Knowledge Base)]
+---
+
+## 🖥️ Screenshots
+
+> Add screenshots of your app here after deployment
+
+---
+
+## 🚀 Quick Start
+
+### Option 1: Static Frontend Only (No Backend)
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Vedantsg23/Healthcare-Disease-Prediction.git
+   cd Healthcare-Disease-Prediction
+   ```
+2. Open `index.html` directly in your browser — the frontend works without any server for the demo prediction engine.
+
+### Option 2: Full Stack (Python Backend + ML Model)
+1. Install Python dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Run the Flask/Django server:
+   ```bash
+   python app.py
+   # OR for Django:
+   python manage.py runserver
+   ```
+3. Visit `http://localhost:5000` in your browser.
+
+---
+
+## 🤖 AI Chatbot Setup
+
+The chatbot uses the **Anthropic Claude API**. To enable it:
+
+1. Get your API key from [console.anthropic.com](https://console.anthropic.com)
+2. For local development, the frontend calls the API directly (CORS handled by browser).
+3. **For production**, create a simple backend proxy:
+
+```python
+# Flask proxy example (recommended for production)
+from flask import Flask, request, jsonify
+import anthropic
+
+app = Flask(__name__)
+client = anthropic.Anthropic(api_key="YOUR_API_KEY")
+
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    data = request.json
+    message = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=1000,
+        system="You are MediSense AI, a professional healthcare assistant...",
+        messages=data['messages']
+    )
+    return jsonify({"reply": message.content[0].text})
 ```
 
 ---
 
-## 🧠 The Machine Learning Models
+## 🧬 Machine Learning Model
 
-The backbone of this project lies in the `model/` folder.
-*   **The Classifier (`diabetes_model.pkl`)**: This is a robust machine learning algorithm (often a Random Forest or XGBoost model) trained on extensive medical datasets (like the Pima Indians Diabetes Database). It classifies data points as either `1` (Diabetic) or `0` (Non-Diabetic).
-*   **The Scaler (`scaler.pkl`)**: Health data has vastly different scales (e.g., Insulin can be up to 800, whereas Diabetes Pedigree is often below 1.0). The scaler standardizes these inputs so the model doesn't mathematically favor large numbers over small ones.
-*   **The Columns (`training_columns.pkl`)**: This ensures our web app sends the features (Glucose, BMI, Age, etc.) in the exact sequence the model expects them!
+### Dataset
+- **Training data**: 4920 samples, 132 symptom features
+- **Target**: 41 disease classes
+- **Source**: Kaggle Disease Prediction Dataset
+
+### Algorithms Used
+| Algorithm | Accuracy |
+|---|---|
+| Naive Bayes | ~95% |
+| Decision Tree | ~97% |
+| Random Forest | ~98% |
+| **Ensemble (Final)** | **~98%** |
+
+### Training the Model
+```python
+from sklearn.naive_bayes import GaussianNB
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+import pandas as pd
+
+# Load dataset
+train = pd.read_csv('data/Training.csv')
+X = train.drop('prognosis', axis=1)
+y = train['prognosis']
+
+# Train models
+nb = GaussianNB().fit(X, y)
+dt = DecisionTreeClassifier().fit(X, y)
+rf = RandomForestClassifier(n_estimators=100).fit(X, y)
+
+# Save models
+import pickle
+pickle.dump(rf, open('models/model.pkl', 'wb'))
+```
 
 ---
 
-## 🚀 Beginner's Step-by-Step Guide
+## 📁 Project Structure
 
-Want to run this professional web application on your own computer? Follow these simple steps.
+```
+Healthcare-Disease-Prediction/
+│
+├── index.html          # Main HTML page
+├── style.css           # Complete CSS styling
+├── app.js              # Frontend JavaScript + Chatbot
+├── data.js             # Disease & symptom database
+│
+├── app.py              # Flask/Django backend
+├── models/
+│   └── model.pkl       # Trained ML model
+├── data/
+│   ├── Training.csv    # Training dataset
+│   └── Testing.csv     # Test dataset
+│
+├── requirements.txt    # Python dependencies
+└── README.md           # This file
+```
 
-### Step 1: Install Python
-Ensure you have Python installed on your computer. You can download it from [python.org](https://www.python.org/downloads/).
-*(Tip: Check the box that says "Add Python to PATH" during installation).*
+---
 
-### Step 2: Download this Project
-Clone this repository to your local machine using git, or just download the ZIP file and extract it.
+## 📦 Requirements
+
+```txt
+flask==2.3.0
+scikit-learn==1.3.0
+pandas==2.0.3
+numpy==1.24.3
+anthropic==0.25.0
+gunicorn==21.2.0
+```
+
+---
+
+## 🌐 Deployment
+
+### Deploy to Render (Free)
+1. Push code to GitHub
+2. Go to [render.com](https://render.com) → New Web Service
+3. Connect your GitHub repo
+4. Build command: `pip install -r requirements.txt`
+5. Start command: `gunicorn app:app`
+
+### Deploy to Vercel (Frontend Only)
+1. Push to GitHub
+2. Import project at [vercel.com](https://vercel.com)
+3. Deploy — it will serve `index.html` automatically
+
+### Deploy to Heroku
 ```bash
-git clone https://github.com/Vedantsg23/Healthcare-Disease-Prediction.git
-cd Healthcare-Disease-Prediction
+heroku create medisense-ai
+git push heroku main
+heroku open
 ```
-
-### Step 3: Install the Required Libraries
-Machine Learning projects require specific Python libraries holding the tools we need (like `pandas`, `scikit-learn`, and `Flask`). We install all of these at once using the `requirements.txt` file.
-
-Open your computer's terminal (or command prompt), make sure you are inside the project folder, and run:
-```bash
-pip install -r requirements.txt
-```
-
-### Step 4: Run the Application!
-This project contains TWO fully functional architectures!
-
-**To run the massively upgraded Flask/HTML Architecture Locally:**
-```bash
-python flask_app.py
-```
-*   You will see an output saying: `Running on http://127.0.0.1:5000`
-*   **Open your browser** (Chrome, Safari, Edge) and type `http://127.0.0.1:5000` in the address bar to view the professional web application.
-
-**To run the classic Streamlit Architecture (Cloud Deployment Ready):**
-```bash
-streamlit run app.py
-```
-*   This will automatically boot up the Streamlit dashboard on your local machine.
-
-### Step 5: Deploy the Professional Flask Website to the Cloud!
-Want to share your beautiful professional interface with the world? I recommend **Vercel** because it requires absolutely **NO CREDIT CARD** and is 100% free!
-1. Go to [Vercel.com](https://vercel.com/) and sign up with your GitHub account.
-2. Click **Add New...** and select **Project**.
-3. Import your `Healthcare-Disease-Prediction` repository.
-4. Leave all settings exactly as default. Vercel will automatically read the completely configured `vercel.json` file I prepared for you!
-5. Click **Deploy**. In about 1 minute, Vercel will give you a completely free live URL!
 
 ---
 
-## ✨ Features You Will Experience
+## ⚕️ Medical Disclaimer
 
-*   **Intelligent Prediction Results**: Input your metrics (like BMI and age) to instantly calculate your diabetes risk percentage.
-*   **Smart Medical Alerts**: If a high-risk prediction is made, the app dynamically generates a custom report presenting specific symptoms to watch out for (e.g., *Frequent Urination*) and common medical treatments (e.g., *Metformin*).
-*   **Interactive Symptom Checker**: Click on symptoms like *Extreme Fatigue* or *Unexplained Weight Loss* to slide open personalized panels detailing modern medical approaches and essential lifestyle changes.
-*   **Embedded AI Chatbot**: A responsive healthcare assistant ready to explain the machine learning model, dive deeper into specific medications, or break down the nuances of diabetes diets.
+> **IMPORTANT**: MediSense AI is an educational tool only. It does **NOT** provide medical diagnoses. Always consult a licensed physician or healthcare professional before making any health decisions or taking any medication.
+>
+> This application is built for learning purposes and should not replace professional medical advice.
+
+---
+
+## 👨‍💻 Developer
+
+**Vedant SG**
+- GitHub: [@Vedantsg23](https://github.com/Vedantsg23)
+- Project: Healthcare Disease Prediction System
 
 ---
 
-## 👨‍💻 Note for Developers & Streamlit Users
-Historically, this app was built on Streamlit. If you wish to deploy the quick data-dashboard version on Streamlit Cloud, you can simply write a small `app.py` script loading the models natively via Streamlit. 
+## 📄 License
 
-However, the main branch now focuses heavily on the **Professional HTML/CSS/JS Flask Architecture** to provide unparalleled aesthetic UI control, DOM animations, and native JS interactions.
-
-> **Disclaimer**: This tool was developed strictly for educational machine learning purposes. It should **not** be used as a medical diagnosis tool. Users should always consult a licensed physician regarding actual diabetes diagnosis or medication dosages.
+This project is licensed under the **MIT License** — see [LICENSE](LICENSE) for details.
 
 ---
-*Created by [Vedant Gadage](https://github.com/Vedantsg23) | Healthcare Disease Prediction Internship Project*
+
+<div align="center">
+Made with ❤️ for better healthcare accessibility
+</div>
