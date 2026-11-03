@@ -24,11 +24,13 @@ SYSTEM_PROMPT = (
     "Always emphasize consulting a real doctor. Keep responses concise and use markdown."
 )
 
-# Anthropic directly when ANTHROPIC_API_KEY is set; otherwise Claude through the
-# Vercel AI Gateway, authorised by the deployment's own OIDC token (no key needed on Vercel).
+# Anthropic directly when ANTHROPIC_API_KEY is set. Otherwise the Vercel AI Gateway,
+# authorised by the deployment's own OIDC token (no key needed on Vercel): Claude first,
+# then a model the gateway's free tier allows, so the assistant answers either way.
 ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-haiku-5-5")
 GATEWAY_URL = "https://ai-gateway.vercel.sh/v1/chat/completions"
-GATEWAY_MODELS = [m for m in [os.environ.get("AI_GATEWAY_MODEL"), "anthropic/claude-haiku-4.5", "anthropic/claude-3.5-haiku", "anthropic/claude-3-haiku"] if m]
+GATEWAY_MODELS = [m for m in [os.environ.get("AI_GATEWAY_MODEL"), "anthropic/claude-haiku-4.5", "google/gemini-2.5-flash-lite"] if m]
+_gateway_model = None  # the first model that answered, reused while this instance is warm
 MAX_MESSAGES = 20
 MAX_CHARS = 6000
 MAX_TOKENS = 800
@@ -72,8 +74,10 @@ def gateway_token():
 
 
 def ask_gateway(messages, token):
+    global _gateway_model
     last_error = None
-    for model in GATEWAY_MODELS:
+    order = [_gateway_model] + [m for m in GATEWAY_MODELS if m != _gateway_model] if _gateway_model else GATEWAY_MODELS
+    for model in order:
         body = json.dumps({
             "model": model,
             "max_tokens": MAX_TOKENS,
@@ -86,10 +90,11 @@ def ask_gateway(messages, token):
         try:
             with urllib.request.urlopen(req, timeout=45) as res:
                 data = json.loads(res.read().decode())
+            _gateway_model = model
             return data["choices"][0]["message"]["content"]
         except urllib.error.HTTPError as e:
             last_error = f"{model}: HTTP {e.code} {e.read()[:300]!r}"
-            if e.code in (400, 404):  # unknown model, try the next one
+            if e.code in (400, 403, 404):  # unknown model, or one this plan cannot use: try the next
                 continue
             break
     raise RuntimeError(last_error or "no gateway model available")

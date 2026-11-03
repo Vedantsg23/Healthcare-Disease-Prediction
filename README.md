@@ -67,7 +67,7 @@ The chatbot uses the **Anthropic Claude API**. The application is designed with 
 - **Frontend**: Sends chat requests to a local `/api/chat` route.
 - **Backend (Flask)**: Proxies requests to Anthropic using your API key stored safely in environment variables.
 - **Security**: This prevents your API key from ever being exposed to the user's browser.
-- **No key on Vercel**: without `ANTHROPIC_API_KEY`, the backend calls Claude through the [Vercel AI Gateway](https://vercel.com/docs/ai-gateway) using the deployment's own OIDC token. `AI_GATEWAY_API_KEY` works too, and `ANTHROPIC_MODEL` / `AI_GATEWAY_MODEL` change the model.
+- **No key on Vercel**: without `ANTHROPIC_API_KEY`, the backend uses the [Vercel AI Gateway](https://vercel.com/docs/ai-gateway) with the deployment's own OIDC token. It asks for Claude first and falls back to a model the gateway's free tier allows. `AI_GATEWAY_API_KEY` works too, and `ANTHROPIC_MODEL` / `AI_GATEWAY_MODEL` choose the model.
 
 ---
 
