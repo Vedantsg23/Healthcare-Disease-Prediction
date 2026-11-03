@@ -9,8 +9,7 @@
 
 **An AI-powered healthcare web application that predicts diseases from symptoms, provides medicine recommendations, and includes a secure AI health chatbot.**
 
-[🌐 Live Demo](#) http://127.0.0.1:5000
-• [📖 Documentation](#how-it-works) • [🐛 Report Bug](https://github.com/Vedantsg23/Healthcare-Disease-Prediction/issues)
+[🌐 Live demo](https://healthcare-disease-prediction.vercel.app) • [📖 Documentation](#-prediction-engine) • [🐛 Report Bug](https://github.com/Vedantsg23/Healthcare-Disease-Prediction/issues)
 
 </div>
 
@@ -20,13 +19,13 @@
 
 | Feature | Description |
 |---|---|
-| 🔬 **Symptom Checker** | Select from 132 medically recognised symptoms |
-| 🧠 **AI Prediction** | Pattern matching engine predicts 41+ diseases instantly |
+| 🔬 **Symptom Checker** | Search and pick from 132 symptoms |
+| 🧠 **AI Prediction** | A pattern matching engine finds the closest condition instantly, in the browser |
 | 💊 **Medicine Guide** | Detailed medicine recommendations with dosage & safety info |
 | 🤖 **AI Chatbot** | Claude AI-powered assistant via secure backend proxy |
-| 📚 **Disease Library** | Comprehensive encyclopedia of 41 diseases |
+| 📚 **Disease Library** | 33 conditions to search and filter, 10 with full care guides |
 | 🍎 **Diet & Lifestyle** | Condition-specific nutrition and lifestyle advice |
-| 🎨 **Modern UI** | Dark-themed, glassmorphic, responsive professional interface |
+| 🎨 **Editorial UI** | Clean editorial design in white, black and cobalt (Geist and Inter), responsive and keyboard friendly |
 
 ---
 
@@ -68,6 +67,7 @@ The chatbot uses the **Anthropic Claude API**. The application is designed with 
 - **Frontend**: Sends chat requests to a local `/api/chat` route.
 - **Backend (Flask)**: Proxies requests to Anthropic using your API key stored safely in environment variables.
 - **Security**: This prevents your API key from ever being exposed to the user's browser.
+- **No key on Vercel**: without `ANTHROPIC_API_KEY`, the backend calls Claude through the [Vercel AI Gateway](https://vercel.com/docs/ai-gateway) using the deployment's own OIDC token. `AI_GATEWAY_API_KEY` works too, and `ANTHROPIC_MODEL` / `AI_GATEWAY_MODEL` change the model.
 
 ---
 
@@ -94,7 +94,7 @@ Healthcare-Disease-Prediction/
 │
 ├── static/             # Static Assets
 │   ├── css/
-│   │   └── style.css   # Modern Glassmorphic Styling
+│   │   └── style.css   # Editorial styling (white, black, cobalt)
 │   └── js/
 │       ├── app.js      # Core Application & Chatbot Logic
 │       └── data.js     # Disease & Symptom Database
@@ -106,6 +106,10 @@ Healthcare-Disease-Prediction/
 ---
 
 ## 🌐 Deployment
+
+### Vercel (live)
+`vercel.json` deploys `app.py` with the Python runtime. Every push to `main` redeploys
+[healthcare-disease-prediction.vercel.app](https://healthcare-disease-prediction.vercel.app).
 
 ### Deploy to Render / Heroku
 The project is ready for production deployment. Use the following settings:

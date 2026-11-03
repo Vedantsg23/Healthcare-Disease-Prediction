@@ -4,629 +4,444 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MediSense AI — Healthcare Disease Prediction</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>MediSense AI — Symptom checker, disease library and medicine guide</title>
+    <meta name="description" content="Pick your symptoms and MediSense shows the likely condition with medicines, precautions and diet advice. An educational tool, not a diagnosis." />
+    <meta name="theme-color" content="#1F33F5" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 
 <body>
+    <a class="skip" href="#check">Skip to the symptom checker</a>
 
-    <!-- ===== NAVBAR ===== -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#home" class="nav-logo">
-                <span class="logo-icon"><i class="fa-solid fa-heart-pulse"></i></span>
-                <span>MediSense<span class="accent">AI</span></span>
-            </a>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-up" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" /><path d="m20 20-4.2-4.2" /></symbol>
+        <symbol id="i-cross" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" /></symbol>
+    </svg>
+
+    <!-- ===== HEADER ===== -->
+    <header class="nav" id="navbar">
+        <a href="#home" class="brand" aria-label="MediSense AI, back to top">
+            <span class="brand-mark" aria-hidden="true"><svg><use href="#i-cross" /></svg></span>
+            MEDISENSE
+        </a>
+        <nav aria-label="Main">
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#predict">Predict</a></li>
-                <li><a href="#diseases">Diseases</a></li>
-                <li><a href="#medicines">Medicines</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="#home">Home<sup>01</sup></a></li>
+                <li><a href="#check">Check<sup>02</sup></a></li>
+                <li><a href="#library">Library<sup>03</sup></a></li>
+                <li><a href="#medicines">Medicines<sup>04</sup></a></li>
+                <li><a href="#faq">FAQ<sup>05</sup></a></li>
             </ul>
-            <button class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></button>
-        </div>
-    </nav>
+        </nav>
+        <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    </header>
 
-    <!-- ===== HERO SECTION ===== -->
-    <section class="hero" id="home">
-        <div class="hero-bg-anim"></div>
-        <div class="hero-content">
-            <div class="hero-badge"><i class="fa-solid fa-shield-heart"></i> AI-Powered Health Analysis</div>
-            <h1 class="hero-title">
-                Predict Diseases<br><span class="gradient-text">From Your Symptoms</span>
-            </h1>
-            <p class="hero-subtitle">
-                MediSense AI uses advanced machine learning to analyse your symptoms, predict possible conditions,
-                recommend medicines, and connect you with an intelligent health assistant — all in seconds.
-            </p>
-            <div class="hero-cta">
-                <a href="#predict" class="btn btn-primary"><i class="fa-solid fa-stethoscope"></i> Start Diagnosis</a>
-                <a href="#how-it-works" class="btn btn-outline"><i class="fa-solid fa-play"></i> See How It Works</a>
-            </div>
-            <div class="hero-stats">
-                <div class="stat"><span class="stat-num">41+</span><span class="stat-label">Diseases</span></div>
-                <div class="stat-divider"></div>
-                <div class="stat"><span class="stat-num">132</span><span class="stat-label">Symptoms</span></div>
-                <div class="stat-divider"></div>
-                <div class="stat"><span class="stat-num">98%</span><span class="stat-label">Accuracy</span></div>
-                <div class="stat-divider"></div>
-                <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">AI Support</span></div>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="floating-card card-a">
-                <i class="fa-solid fa-viruses"></i>
-                <span>Fungal Infection</span>
-                <small>Matched 94%</small>
-            </div>
-            <div class="hero-orb">
-                <div class="orb-ring r1"></div>
-                <div class="orb-ring r2"></div>
-                <div class="orb-ring r3"></div>
-                <div class="orb-core"><i class="fa-solid fa-dna"></i></div>
-            </div>
-            <div class="floating-card card-b">
-                <i class="fa-solid fa-pills"></i>
-                <span>Medicine Found</span>
-                <small>3 recommendations</small>
-            </div>
-            <div class="floating-card card-c">
-                <i class="fa-solid fa-robot"></i>
-                <span>AI Chat Active</span>
-                <small>Ask anything</small>
-            </div>
-        </div>
-        <div class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></div>
-    </section>
-
-    <!-- ===== DISCLAIMER ===== -->
-    <div class="disclaimer-bar">
-        <i class="fa-solid fa-circle-info"></i>
-        <strong>Medical Disclaimer:</strong> MediSense AI is for educational purposes only. Always consult a qualified
-        healthcare professional for medical advice and treatment.
-    </div>
-
-    <!-- ===== HOW IT WORKS ===== -->
-    <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Process</span>
-                <h2>How MediSense AI Works</h2>
-                <p>Three simple steps to get your AI-powered health analysis</p>
-            </div>
-            <div class="steps-grid">
-                <div class="step-card" data-step="01">
-                    <div class="step-icon"><i class="fa-solid fa-list-check"></i></div>
-                    <h3>Select Symptoms</h3>
-                    <p>Choose from 132 medically recognised symptoms. You can select multiple symptoms that you are
-                        currently experiencing for a more accurate prediction.</p>
-                    <ul class="step-details">
-                        <li><i class="fa-solid fa-check"></i> Search or browse symptoms</li>
-                        <li><i class="fa-solid fa-check"></i> Select up to 17 symptoms</li>
-                        <li><i class="fa-solid fa-check"></i> All symptoms are medically verified</li>
-                    </ul>
-                </div>
-                <div class="step-card" data-step="02">
-                    <div class="step-icon"><i class="fa-solid fa-brain"></i></div>
-                    <h3>AI Analysis</h3>
-                    <p>Our machine learning model — trained on thousands of clinical records — analyses your symptom
-                        pattern and matches it against 41+ known conditions.</p>
-                    <ul class="step-details">
-                        <li><i class="fa-solid fa-check"></i> Naive Bayes + Decision Tree ensemble</li>
-                        <li><i class="fa-solid fa-check"></i> Pattern recognition across 132 features</li>
-                        <li><i class="fa-solid fa-check"></i> Results in under 2 seconds</li>
-                    </ul>
-                </div>
-                <div class="step-card" data-step="03">
-                    <div class="step-icon"><i class="fa-solid fa-file-medical"></i></div>
-                    <h3>Get Results</h3>
-                    <p>Receive detailed information about the predicted condition: causes, precautions, recommended
-                        medicines, dietary advice, and follow-up actions.</p>
-                    <ul class="step-details">
-                        <li><i class="fa-solid fa-check"></i> Disease description & causes</li>
-                        <li><i class="fa-solid fa-check"></i> Medicine recommendations</li>
-                        <li><i class="fa-solid fa-check"></i> Lifestyle & diet advice</li>
-                    </ul>
+    <main>
+        <!-- ===== HERO ===== -->
+        <section class="hero" id="home">
+            <div class="hero-field" aria-hidden="true">
+                <svg class="pulse" viewBox="0 0 1440 400" preserveAspectRatio="none">
+                    <path class="pulse-line" d="M0 220 H430 l26 -18 l20 18 H560 l18 -120 l26 230 l24 -170 l18 58 H760 l22 -22 l24 22 H1440" />
+                </svg>
+                <div class="capsule">
+                    <span class="cap-a"></span><span class="cap-b"></span>
                 </div>
             </div>
 
-            <!-- Video Tutorial -->
-            <div class="video-section">
-                <div class="video-text">
-                    <span class="section-tag">Tutorial</span>
-                    <h3>Watch How to Use MediSense AI</h3>
-                    <p>Follow our quick walkthrough to understand how to get the most accurate results from the symptom
-                        checker.</p>
-                    <ul class="video-tips">
-                        <li><i class="fa-solid fa-lightbulb"></i> Select <strong>all</strong> symptoms you are
-                            experiencing, not just the main one</li>
-                        <li><i class="fa-solid fa-lightbulb"></i> Include symptoms that have been going on for more than
-                            24 hours</li>
-                        <li><i class="fa-solid fa-lightbulb"></i> After getting results, use the AI chatbot for more
-                            information</li>
-                        <li><i class="fa-solid fa-lightbulb"></i> Always cross-check with a real doctor before taking
-                            any medicine</li>
-                    </ul>
-                </div>
-                <div class="video-demo">
-                    <div class="demo-screen">
-                        <div class="demo-header">
-                            <span class="demo-dot red"></span>
-                            <span class="demo-dot yellow"></span>
-                            <span class="demo-dot green"></span>
-                            <span class="demo-title">MediSense AI — Symptom Checker</span>
-                        </div>
-                        <div class="demo-body" id="demoBody">
-                            <div class="demo-step active" id="demoStep1">
-                                <div class="demo-label">Step 1: Select your symptoms</div>
-                                <div class="demo-chips">
-                                    <span class="chip selected">Itching</span>
-                                    <span class="chip selected">Skin Rash</span>
-                                    <span class="chip">Fever</span>
-                                    <span class="chip selected">Nodal Skin Eruptions</span>
-                                    <span class="chip">Headache</span>
-                                    <span class="chip">Fatigue</span>
-                                </div>
-                            </div>
-                            <div class="demo-step" id="demoStep2">
-                                <div class="demo-label">Step 2: AI is analysing...</div>
-                                <div class="demo-loader">
-                                    <div class="demo-spinner"></div>
-                                    <span>Processing 132 symptom patterns...</span>
-                                </div>
-                            </div>
-                            <div class="demo-step" id="demoStep3">
-                                <div class="demo-label">Step 3: Results ready!</div>
-                                <div class="demo-result">
-                                    <div class="demo-disease"><i class="fa-solid fa-viruses"></i> Fungal Infection</div>
-                                    <div class="demo-confidence">Confidence: <strong>94%</strong></div>
-                                    <div class="demo-meds"><i class="fa-solid fa-pills"></i> Clotrimazole, Fluconazole,
-                                        Terbinafine</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="demo-progress">
-                            <div class="demo-progress-bar" id="demoProgressBar"></div>
-                        </div>
+            <div class="hero-top">
+                <p class="hero-lede">Pick your symptoms, see the likely condition, <span>and get medicines, precautions and diet advice in seconds.</span></p>
+                <a class="line-link line-link--light" href="#check">Check symptoms <svg><use href="#i-up" /></svg></a>
+            </div>
+
+            <ul class="hero-tools">
+                <li><a href="#check">Symptom checker</a></li>
+                <li><a href="#library">Disease library</a></li>
+                <li><a href="#medicines">Medicine guide</a></li>
+            </ul>
+
+            <p class="hero-note">For learning, not diagnosis</p>
+            <p class="hero-word" aria-hidden="true">MEDISENSE</p>
+            <h1 class="sr-only">MediSense AI: predict likely conditions from your symptoms</h1>
+        </section>
+
+        <!-- ===== ABOUT ===== -->
+        <section class="block" id="about">
+            <div class="block-head"><span>About</span><span>Educational tool, not a diagnosis</span></div>
+            <p class="statement statement--indent">MediSense turns the symptoms you feel into a clear next step: the likely condition, how it is usually treated, and when to see a doctor.</p>
+
+            <div class="about-grid">
+                <div class="about-art" aria-hidden="true">
+                    <div class="about-card">
+                        <span class="ac-label">Likely condition</span>
+                        <strong>Common Cold</strong>
+                        <span class="ac-sev"><i></i><i></i><i></i> Low severity</span>
+                        <span class="ac-meds">Paracetamol, Cetirizine, Saline Nasal Spray</span>
                     </div>
                 </div>
+                <dl class="about-rows">
+                    <div class="about-row">
+                        <dt>(Select)</dt>
+                        <dd>Search a list of 132 symptoms and pick every one you have noticed, not just the worst. More symptoms give a better match.</dd>
+                    </div>
+                    <div class="about-row">
+                        <dt>(+Analyse)</dt>
+                        <dd>MediSense compares your symptoms with the pattern of each condition in its library, right in your browser. Nothing is sent anywhere.</dd>
+                    </div>
+                    <div class="about-row">
+                        <dt>(=Result)</dt>
+                        <dd>
+                            <ul class="facts">
+                                <li><span>Symptoms to choose from</span><b data-stat="symptoms">132</b></li>
+                                <li><span>Conditions in the library</span><b data-stat="conditions">33</b></li>
+                                <li><span>Full care guides</span><b data-stat="guides">10</b></li>
+                            </ul>
+                            <a class="line-link" href="#check">Check symptoms <svg><use href="#i-up" /></svg></a>
+                        </dd>
+                    </div>
+                </dl>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ===== PREDICTION TOOL ===== -->
-    <section class="predict-section" id="predict">
-        <div class="container">
-            <div class="section-header light">
-                <span class="section-tag">Diagnosis Tool</span>
-                <h2>Check Your Symptoms</h2>
-                <p>Select the symptoms you are experiencing and get an instant AI prediction</p>
-            </div>
+        <!-- ===== SOURCES STRIP ===== -->
+        <section class="strip" aria-label="Trusted health sources">
+            <a href="https://www.who.int" target="_blank" rel="noopener">World Health Organization</a>
+            <a href="https://www.cdc.gov" target="_blank" rel="noopener">CDC</a>
+            <a href="https://medlineplus.gov" target="_blank" rel="noopener">MedlinePlus</a>
+            <a href="https://www.nih.gov" target="_blank" rel="noopener">NIH</a>
+        </section>
 
-            <div class="predict-grid">
-                <!-- Symptom Selector -->
-                <div class="symptom-panel">
-                    <div class="panel-header">
-                        <h3><i class="fa-solid fa-list-ul"></i> Select Symptoms</h3>
-                        <span class="selected-count" id="selectedCount">0 selected</span>
-                    </div>
-                    <div class="symptom-search-wrapper">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" id="symptomSearch" placeholder="Search symptoms..." class="symptom-search" />
-                    </div>
-                    <div class="symptom-list" id="symptomList"></div>
-                    <div class="selected-symptoms" id="selectedSymptoms">
-                        <div class="selected-label">Selected symptoms:</div>
-                        <div class="selected-tags" id="selectedTags"><em>None selected yet</em></div>
-                    </div>
-                    <button class="btn btn-primary btn-full" id="predictBtn" disabled>
-                        <i class="fa-solid fa-magnifying-glass-chart"></i> Analyse Symptoms
-                    </button>
-                    <button class="btn btn-ghost btn-full" id="clearBtn">
-                        <i class="fa-solid fa-rotate-left"></i> Clear All
-                    </button>
+        <!-- ===== SYMPTOM CHECKER ===== -->
+        <section class="block" id="check">
+            <span id="predict" class="anchor-alias"></span>
+            <div class="block-head"><span>Symptom checker</span><span>Runs in your browser</span></div>
+
+            <div class="check-grid">
+                <div class="check-intro">
+                    <h2 class="title">Check your<br>symptoms</h2>
+                    <p>Pick what you feel, then analyse. You can change your picks and run it again as often as you like.</p>
+                    <button class="line-link" id="clearBtn" type="button">Clear all <svg><use href="#i-x" /></svg></button>
                 </div>
 
-                <!-- Results Panel -->
-                <div class="result-panel" id="resultPanel">
+                <div class="picker">
+                    <div class="picker-head">
+                        <label for="symptomSearch">Symptoms</label>
+                        <span class="count" id="selectedCount">0 selected</span>
+                    </div>
+                    <div class="search">
+                        <svg aria-hidden="true"><use href="#i-search" /></svg>
+                        <input type="search" id="symptomSearch" placeholder="Search, for example fever" autocomplete="off" />
+                    </div>
+                    <div class="symptom-list" id="symptomList" role="group" aria-label="Symptoms"></div>
+                    <div class="picked">
+                        <p class="picked-label">Your picks</p>
+                        <div class="picked-tags" id="selectedTags"><em>None yet. Pick at least one symptom.</em></div>
+                    </div>
+                    <button class="btn btn--black btn--full" id="predictBtn" type="button" disabled>Analyse symptoms <svg><use href="#i-up" /></svg></button>
+                </div>
+
+                <div class="result" id="resultPanel" aria-live="polite">
                     <div class="result-empty" id="resultEmpty">
-                        <div class="result-empty-icon"><i class="fa-solid fa-stethoscope"></i></div>
-                        <h3>Ready to Analyse</h3>
-                        <p>Select your symptoms on the left and click "Analyse Symptoms" to get your AI-powered health
-                            report.</p>
+                        <div class="empty-art" aria-hidden="true"><span></span><span></span><span></span></div>
+                        <p class="empty-title">Your result shows up here.</p>
+                        <p>Pick at least one symptom on the left, then choose Analyse symptoms.</p>
                     </div>
-                    <div class="result-content" id="resultContent" style="display:none;">
-                        <div class="result-header">
-                            <div class="result-badge"><i class="fa-solid fa-circle-check"></i> Analysis Complete</div>
-                            <h3 id="resultDiseaseName">-</h3>
-                            <div class="result-confidence">
-                                <span>Confidence:</span>
-                                <div class="confidence-bar">
-                                    <div class="confidence-fill" id="confidenceFill"></div>
-                                </div>
-                                <span id="confidenceText">-</span>
+
+                    <div class="result-content" id="resultContent" hidden>
+                        <p class="result-kicker">Likely condition</p>
+                        <h3 class="result-name" id="resultDiseaseName">-</h3>
+                        <div class="result-meta">
+                            <div class="severity" id="severityDisplay"></div>
+                            <div class="confidence">
+                                <span>Match</span>
+                                <div class="confidence-bar"><div class="confidence-fill" id="confidenceFill"></div></div>
+                                <b id="confidenceText">-</b>
                             </div>
                         </div>
-                        <div class="result-tabs">
-                            <button class="tab-btn active" data-tab="overview">Overview</button>
-                            <button class="tab-btn" data-tab="medicines">Medicines</button>
-                            <button class="tab-btn" data-tab="precautions">Precautions</button>
-                            <button class="tab-btn" data-tab="diet">Diet & Lifestyle</button>
+
+                        <div class="tabs" role="tablist" aria-label="Result details">
+                            <button class="tab-btn active" type="button" role="tab" data-tab="overview">Overview</button>
+                            <button class="tab-btn" type="button" role="tab" data-tab="medicines">Medicines</button>
+                            <button class="tab-btn" type="button" role="tab" data-tab="precautions">Precautions</button>
+                            <button class="tab-btn" type="button" role="tab" data-tab="diet">Diet</button>
                         </div>
-                        <div class="tab-content active" id="tab-overview">
-                            <div class="info-card">
-                                <h4><i class="fa-solid fa-circle-info"></i> About This Condition</h4>
-                                <p id="diseaseDesc">-</p>
-                            </div>
-                            <div class="info-card">
-                                <h4><i class="fa-solid fa-triangle-exclamation"></i> Symptoms Matched</h4>
-                                <div id="matchedSymptoms" class="matched-chips"></div>
-                            </div>
-                            <div class="info-card warning-card">
-                                <h4><i class="fa-solid fa-shield-heart"></i> Severity Level</h4>
-                                <div id="severityDisplay" class="severity-display"></div>
-                            </div>
+
+                        <div class="tab-content active" id="tab-overview" role="tabpanel">
+                            <p class="result-desc" id="diseaseDesc">-</p>
+                            <p class="mini-label">Symptoms that matched</p>
+                            <div class="chips" id="matchedSymptoms"></div>
                         </div>
-                        <div class="tab-content" id="tab-medicines">
-                            <div class="info-card">
-                                <h4><i class="fa-solid fa-pills"></i> Recommended Medicines</h4>
-                                <p class="med-disclaimer"><i class="fa-solid fa-triangle-exclamation"></i>
-                                    <strong>Always consult a doctor before taking any medicine.</strong></p>
-                                <div id="medicineList" class="medicine-grid"></div>
-                            </div>
-                            <div class="info-card">
-                                <h4><i class="fa-solid fa-clock"></i> When to See a Doctor</h4>
-                                <p id="doctorAdvice">-</p>
-                            </div>
+                        <div class="tab-content" id="tab-medicines" role="tabpanel">
+                            <p class="note">Always ask a doctor or pharmacist before taking any medicine.</p>
+                            <ul class="med-list" id="medicineList"></ul>
+                            <p class="mini-label">When to see a doctor</p>
+                            <p class="result-desc" id="doctorAdvice">-</p>
                         </div>
-                        <div class="tab-content" id="tab-precautions">
-                            <div class="info-card">
-                                <h4><i class="fa-solid fa-shield-virus"></i> Precautions to Take</h4>
-                                <ul id="precautionList" class="precaution-list"></ul>
-                            </div>
+                        <div class="tab-content" id="tab-precautions" role="tabpanel">
+                            <ul class="plain-list" id="precautionList"></ul>
                         </div>
-                        <div class="tab-content" id="tab-diet">
-                            <div class="info-card">
-                                <h4><i class="fa-solid fa-apple-whole"></i> Recommended Diet</h4>
-                                <div id="dietList" class="diet-grid"></div>
-                            </div>
-                            <div class="info-card">
-                                <h4><i class="fa-solid fa-ban"></i> Foods to Avoid</h4>
-                                <ul id="avoidList" class="precaution-list avoid"></ul>
-                            </div>
+                        <div class="tab-content" id="tab-diet" role="tabpanel">
+                            <p class="mini-label">Good to eat</p>
+                            <div class="diet-grid" id="dietList"></div>
+                            <p class="mini-label">Best avoided</p>
+                            <ul class="plain-list plain-list--avoid" id="avoidList"></ul>
                         </div>
+
                         <div class="result-actions">
-                            <button class="btn btn-outline"
-                                onclick="document.getElementById('chatInput').focus(); document.querySelector('.chatbot-widget').classList.add('open');">
-                                <i class="fa-solid fa-robot"></i> Ask AI Chatbot
-                            </button>
-                            <button class="btn btn-ghost" onclick="window.print()">
-                                <i class="fa-solid fa-print"></i> Print Report
-                            </button>
+                            <button class="btn btn--black" type="button" data-open-chat>Ask the assistant</button>
+                            <button class="btn btn--ghost" type="button" onclick="window.print()">Print report</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ===== DISEASE ENCYCLOPEDIA ===== -->
-    <section class="diseases-section" id="diseases">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Encyclopedia</span>
-                <h2>Disease Information Library</h2>
-                <p>Browse our comprehensive database of 41 diseases with detailed information</p>
-            </div>
-            <div class="disease-search-bar">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="diseaseSearch" placeholder="Search diseases..." />
-            </div>
-            <div class="disease-filter">
-                <button class="filter-btn active" data-cat="all">All</button>
-                <button class="filter-btn" data-cat="skin">Skin</button>
-                <button class="filter-btn" data-cat="respiratory">Respiratory</button>
-                <button class="filter-btn" data-cat="digestive">Digestive</button>
-                <button class="filter-btn" data-cat="infectious">Infectious</button>
-                <button class="filter-btn" data-cat="chronic">Chronic</button>
+        <!-- ===== HOW IT WORKS ===== -->
+        <section class="block block--night" id="how">
+            <div class="block-head"><span>How it works</span><span>Three steps</span></div>
+            <p class="statement statement--lead">Three steps from what you feel to what to do next, <span>with a doctor still in the loop.</span></p>
+            <a class="line-link line-link--light" href="#check">Start now <svg><use href="#i-up" /></svg></a>
+
+            <ol class="steps">
+                <li class="step">
+                    <span class="step-num" aria-hidden="true">01</span>
+                    <div class="step-art step-art--chips" aria-hidden="true">
+                        <span class="on">Itching</span><span class="on">Skin Rash</span><span>Fever</span><span class="on">Nodal Skin Eruptions</span><span>Headache</span><span>Fatigue</span>
+                    </div>
+                    <div class="step-text">
+                        <h3>Select symptoms</h3>
+                        <p class="step-sub">132 to choose from</p>
+                        <p>Search or scroll the list and pick everything you are feeling. Symptoms that have lasted more than a day matter most.</p>
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="step-num" aria-hidden="true">02</span>
+                    <div class="step-art step-art--scan" aria-hidden="true">
+                        <span class="scan-row"><i style="--w:92%"></i></span>
+                        <span class="scan-row"><i style="--w:64%"></i></span>
+                        <span class="scan-row"><i style="--w:38%"></i></span>
+                        <span class="scan-row"><i style="--w:21%"></i></span>
+                    </div>
+                    <div class="step-text">
+                        <h3>Analyse</h3>
+                        <p class="step-sub">In your browser, instantly</p>
+                        <p>Your picks are compared with the symptom pattern of each condition. The closest match comes back with how well it fits.</p>
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="step-num" aria-hidden="true">03</span>
+                    <div class="step-art step-art--result" aria-hidden="true">
+                        <span class="sr-k">Likely condition</span>
+                        <strong>Fungal Infection</strong>
+                        <span class="sr-m">Clotrimazole, Fluconazole, Terbinafine</span>
+                    </div>
+                    <div class="step-text">
+                        <h3>Act on it</h3>
+                        <p class="step-sub">Medicines, precautions, diet</p>
+                        <p>Read what the condition is, the medicines doctors use for it, what to eat and avoid, and when to see a doctor.</p>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ===== DISEASE LIBRARY ===== -->
+        <section class="block" id="library">
+            <div class="block-head"><span>Disease library</span><span><b data-stat="conditions">33</b> conditions</span></div>
+            <div class="library-top">
+                <h2 class="title">Look up<br>a condition</h2>
+                <div class="library-tools">
+                    <div class="search search--wide">
+                        <svg aria-hidden="true"><use href="#i-search" /></svg>
+                        <input type="search" id="diseaseSearch" placeholder="Search conditions" aria-label="Search conditions" autocomplete="off" />
+                    </div>
+                    <div class="filters" role="group" aria-label="Filter by type">
+                        <button class="filter-btn active" type="button" data-cat="all">All</button>
+                        <button class="filter-btn" type="button" data-cat="skin">Skin</button>
+                        <button class="filter-btn" type="button" data-cat="respiratory">Respiratory</button>
+                        <button class="filter-btn" type="button" data-cat="digestive">Digestive</button>
+                        <button class="filter-btn" type="button" data-cat="infectious">Infectious</button>
+                        <button class="filter-btn" type="button" data-cat="chronic">Chronic</button>
+                    </div>
+                </div>
             </div>
             <div class="disease-grid" id="diseaseGrid"></div>
-        </div>
-    </section>
+            <p class="empty-line" id="diseaseEmpty" hidden>No condition matches that search. Try a shorter word.</p>
+        </section>
 
-    <!-- ===== MEDICINE GUIDE ===== -->
-    <section class="medicines-section" id="medicines">
-        <div class="container">
-            <div class="section-header light">
-                <span class="section-tag">Medicine Guide</span>
-                <h2>How to Use Medicines Safely</h2>
-                <p>Understand dosage, precautions, and when to seek medical help</p>
-            </div>
-            <div class="medicine-guide-grid">
-                <div class="guide-card">
-                    <div class="guide-icon warn"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                    <h3>Always Read Labels</h3>
-                    <p>Read the medicine packaging and leaflet fully before taking any medication. Check expiry dates
-                        and storage instructions.</p>
-                </div>
-                <div class="guide-card">
-                    <div class="guide-icon info"><i class="fa-solid fa-clock"></i></div>
-                    <h3>Follow Dosage Timing</h3>
-                    <p>Take medicines at the right time — some must be taken with food, others on an empty stomach.
-                        Never skip or double doses.</p>
-                </div>
-                <div class="guide-card">
-                    <div class="guide-icon danger"><i class="fa-solid fa-ban"></i></div>
-                    <h3>Drug Interactions</h3>
-                    <p>Inform your doctor about all medicines you take. Some combinations can cause dangerous side
-                        effects or reduce effectiveness.</p>
-                </div>
-                <div class="guide-card">
-                    <div class="guide-icon success"><i class="fa-solid fa-user-doctor"></i></div>
-                    <h3>Prescription Required</h3>
-                    <p>Many medicines listed in this app require a doctor's prescription. Self-medicating for serious
-                        conditions can be dangerous.</p>
-                </div>
-                <div class="guide-card">
-                    <div class="guide-icon info"><i class="fa-solid fa-droplet"></i></div>
-                    <h3>Stay Hydrated</h3>
-                    <p>Drink plenty of water when taking most medicines unless advised otherwise. This helps your body
-                        absorb and process them correctly.</p>
-                </div>
-                <div class="guide-card">
-                    <div class="guide-icon success"><i class="fa-solid fa-child-reaching"></i></div>
-                    <h3>Children & Elderly</h3>
-                    <p>Dosage for children and elderly patients is often different. Always consult a paediatrician or
-                        geriatric specialist for these cases.</p>
-                </div>
+        <!-- ===== MEDICINE GUIDE ===== -->
+        <section class="block block--tint" id="medicines">
+            <div class="block-head"><span>Medicine guide</span><span>Use medicines safely</span></div>
+            <p class="statement">Six habits that keep everyday medicines safe, and a quick reference for the common ones.</p>
+
+            <div class="rules">
+                <article class="rule">
+                    <h3>Read the label</h3>
+                    <p>Read the pack and leaflet before the first dose. Check the expiry date and how to store it.</p>
+                </article>
+                <article class="rule">
+                    <h3>Keep the timing</h3>
+                    <p>Some medicines go with food, others on an empty stomach. Never skip a dose or take two at once.</p>
+                </article>
+                <article class="rule rule--dark">
+                    <h3>Prescription first</h3>
+                    <p>Many medicines here need a doctor’s prescription. Treating a serious condition yourself can be dangerous.</p>
+                    <a class="line-link line-link--light" href="#faq">Why it matters <svg><use href="#i-up" /></svg></a>
+                </article>
+                <article class="rule">
+                    <h3>Watch interactions</h3>
+                    <p>Tell your doctor about everything you take. Some combinations cause side effects or cancel each other out.</p>
+                </article>
+                <article class="rule">
+                    <h3>Drink water</h3>
+                    <p>Unless told otherwise, take medicines with plenty of water so your body can absorb them properly.</p>
+                </article>
+                <article class="rule">
+                    <h3>Children and older people</h3>
+                    <p>Doses are often different. Ask a paediatrician or a doctor who knows the person’s other medicines.</p>
+                </article>
             </div>
 
-            <div class="dosage-table-section">
-                <h3><i class="fa-solid fa-table"></i> Common OTC Medicine Reference</h3>
-                <div class="table-wrapper">
+            <div class="table-block">
+                <div class="table-head">
+                    <h3>Common over-the-counter medicines</h3>
+                    <p>For reference only. Check with a doctor or pharmacist before taking any of them.</p>
+                </div>
+                <div class="table-wrap" tabindex="0" aria-label="Medicine reference table, scrolls sideways on small screens">
                     <table class="dosage-table">
                         <thead>
-                            <tr>
-                                <th>Medicine</th>
-                                <th>Used For</th>
-                                <th>Typical Dosage</th>
-                                <th>Frequency</th>
-                                <th>With Food?</th>
-                                <th>Caution</th>
-                            </tr>
+                            <tr><th scope="col">Medicine</th><th scope="col">Used for</th><th scope="col">Typical dose</th><th scope="col">How often</th><th scope="col">With food</th><th scope="col">Caution</th></tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><strong>Paracetamol</strong></td>
-                                <td>Fever, mild pain</td>
-                                <td>500–1000 mg</td>
-                                <td>Every 4–6 hrs</td>
-                                <td>Optional</td>
-                                <td>Max 4g/day; avoid with alcohol</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Ibuprofen</strong></td>
-                                <td>Inflammation, pain, fever</td>
-                                <td>200–400 mg</td>
-                                <td>Every 6–8 hrs</td>
-                                <td>Yes</td>
-                                <td>Avoid if kidney issues or ulcers</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Cetirizine</strong></td>
-                                <td>Allergies, itching</td>
-                                <td>10 mg</td>
-                                <td>Once daily</td>
-                                <td>Optional</td>
-                                <td>May cause drowsiness</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Omeprazole</strong></td>
-                                <td>Acidity, GERD</td>
-                                <td>20–40 mg</td>
-                                <td>Once daily</td>
-                                <td>Before meal</td>
-                                <td>Long-term use needs monitoring</td>
-                            </tr>
-                            <tr>
-                                <td><strong>ORS</strong></td>
-                                <td>Dehydration, diarrhea</td>
-                                <td>200–400 ml</td>
-                                <td>After each loose stool</td>
-                                <td>N/A</td>
-                                <td>Mix in clean water only</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Metronidazole</strong></td>
-                                <td>Bacterial/parasitic infections</td>
-                                <td>400 mg</td>
-                                <td>3x daily</td>
-                                <td>Yes</td>
-                                <td>Prescription needed; avoid alcohol</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Azithromycin</strong></td>
-                                <td>Bacterial infections</td>
-                                <td>500 mg</td>
-                                <td>Once daily, 3–5 days</td>
-                                <td>Optional</td>
-                                <td>Prescription required</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Clotrimazole</strong></td>
-                                <td>Fungal skin infections</td>
-                                <td>Topical cream</td>
-                                <td>2–3x daily</td>
-                                <td>N/A</td>
-                                <td>External use only</td>
-                            </tr>
+                            <tr><th scope="row">Paracetamol</th><td>Fever, mild pain</td><td>500–1000 mg</td><td>Every 4–6 hours</td><td>Optional</td><td>Max 4 g a day; avoid alcohol</td></tr>
+                            <tr><th scope="row">Ibuprofen</th><td>Inflammation, pain, fever</td><td>200–400 mg</td><td>Every 6–8 hours</td><td>Yes</td><td>Avoid with kidney problems or ulcers</td></tr>
+                            <tr><th scope="row">Cetirizine</th><td>Allergies, itching</td><td>10 mg</td><td>Once a day</td><td>Optional</td><td>May cause drowsiness</td></tr>
+                            <tr><th scope="row">Omeprazole</th><td>Acidity, GERD</td><td>20–40 mg</td><td>Once a day</td><td>Before a meal</td><td>Long-term use needs monitoring</td></tr>
+                            <tr><th scope="row">ORS</th><td>Dehydration, diarrhoea</td><td>200–400 ml</td><td>After each loose stool</td><td>Not needed</td><td>Mix in clean water only</td></tr>
+                            <tr><th scope="row">Metronidazole</th><td>Bacterial and parasitic infections</td><td>400 mg</td><td>3 times a day</td><td>Yes</td><td>Prescription needed; avoid alcohol</td></tr>
+                            <tr><th scope="row">Azithromycin</th><td>Bacterial infections</td><td>500 mg</td><td>Once a day, 3–5 days</td><td>Optional</td><td>Prescription needed</td></tr>
+                            <tr><th scope="row">Clotrimazole</th><td>Fungal skin infections</td><td>Cream</td><td>2–3 times a day</td><td>Not needed</td><td>For the skin only</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <p class="table-disclaimer"><i class="fa-solid fa-circle-info"></i> This table is for informational
-                    reference only. Always consult a licensed physician or pharmacist before taking any medicine.</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ===== ABOUT SECTION ===== -->
-    <section class="about-section" id="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-text">
-                    <span class="section-tag">About</span>
-                    <h2>About MediSense AI</h2>
-                    <p>MediSense AI was developed as an intelligent healthcare companion that makes preliminary health
-                        information accessible to everyone — especially in areas with limited access to immediate
-                        medical consultation.</p>
-                    <p>The system uses a machine learning ensemble (Naive Bayes + Decision Tree + Random Forest) trained
-                        on clinical symptom-disease datasets, providing highly accurate predictions across 41 medical
-                        conditions.</p>
-                    <div class="tech-stack">
-                        <h4>Technology Stack</h4>
-                        <div class="tech-tags">
-                            <span>Python</span><span>Flask / Django</span><span>Scikit-learn</span>
-                            <span>Pandas</span><span>NumPy</span><span>HTML/CSS/JS</span>
-                            <span>Claude AI API</span>
-                        </div>
-                    </div>
-                    <div class="about-author">
-                        <div class="author-avatar"><i class="fa-solid fa-user-graduate"></i></div>
-                        <div>
-                            <strong>Vedant SG</strong>
-                            <span>Developer — Healthcare AI Project</span>
-                            <a href="https://github.com/Vedantsg23" target="_blank" class="github-link">
-                                <i class="fa-brands fa-github"></i> GitHub Profile
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-features">
-                    <div class="feature-item">
-                        <i class="fa-solid fa-shield-heart"></i>
-                        <div>
-                            <h4>Privacy First</h4>
-                            <p>No personal data is stored. All symptom analysis happens in-session only.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fa-solid fa-bolt"></i>
-                        <div>
-                            <h4>Instant Results</h4>
-                            <p>ML model inference completes in under 2 seconds for real-time feedback.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fa-solid fa-book-medical"></i>
-                        <div>
-                            <h4>Medically Informed</h4>
-                            <p>Dataset based on verified clinical records with 132 recognised symptoms.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fa-solid fa-robot"></i>
-                        <div>
-                            <h4>AI Chatbot Assistant</h4>
-                            <p>Powered by Claude AI for natural language health Q&A around the clock.</p>
-                        </div>
-                    </div>
+        <!-- ===== DOCTOR BAND ===== -->
+        <section class="band" aria-label="When to see a doctor">
+            <div class="band-track" aria-hidden="true">
+                <span>Not a diagnosis. Talk to a doctor.</span><span>Not a diagnosis. Talk to a doctor.</span><span>Not a diagnosis. Talk to a doctor.</span>
+            </div>
+            <div class="band-card">
+                <p>Symptoms lasting more than a day, getting worse, or frightening you? See a doctor or call your local emergency number.</p>
+                <button class="line-link line-link--light" type="button" data-open-chat>Ask the assistant <svg><use href="#i-up" /></svg></button>
+            </div>
+        </section>
+
+        <!-- ===== IN NUMBERS ===== -->
+        <section class="block" id="numbers">
+            <div class="block-head"><span>In numbers</span><span>What is inside</span></div>
+            <div class="numbers">
+                <div class="num"><b data-stat="symptoms">132</b><h3>Symptoms</h3><p>From itching and fever to blurred vision, each one you can search and pick.</p></div>
+                <div class="num"><b data-stat="conditions">33</b><h3>Conditions</h3><p>Skin, respiratory, digestive, infectious and long-term conditions in the library.</p></div>
+                <div class="num"><b data-stat="guides">10</b><h3>Full care guides</h3><p>Medicines, precautions, diet and when to see a doctor, for the most common conditions.</p></div>
+                <div class="num"><b>0</b><h3>Accounts needed</h3><p>No sign-up. Your symptom picks stay in this browser tab.</p></div>
+            </div>
+        </section>
+
+        <!-- ===== FAQ ===== -->
+        <section class="block" id="faq">
+            <div class="block-head"><span>FAQ</span><span>Good to know</span></div>
+            <div class="faq-grid">
+                <h2 class="title">Questions,<br>answered</h2>
+                <div class="faq">
+                    <details>
+                        <summary>Is this a diagnosis?<svg aria-hidden="true"><use href="#i-plus" /></svg></summary>
+                        <p>No. MediSense is an educational tool. It points you to conditions worth reading about, but only a doctor who examines you can diagnose you.</p>
+                    </details>
+                    <details>
+                        <summary>How does MediSense pick a condition?<svg aria-hidden="true"><use href="#i-plus" /></svg></summary>
+                        <p>Each condition in the library has a set of typical symptoms. MediSense compares your picks with those sets and shows the closest match and how well it fits.</p>
+                    </details>
+                    <details>
+                        <summary>Where do my symptoms go?<svg aria-hidden="true"><use href="#i-plus" /></svg></summary>
+                        <p>Nowhere. The symptom checker runs in your browser and nothing is saved. Only messages you type to the assistant are sent to the server, to get an answer.</p>
+                    </details>
+                    <details>
+                        <summary>What can the assistant help with?<svg aria-hidden="true"><use href="#i-plus" /></svg></summary>
+                        <p>It answers general questions about conditions, symptoms and medicines in plain words, and always reminds you to check with a doctor.</p>
+                    </details>
+                    <details>
+                        <summary>Can I take the medicines listed?<svg aria-hidden="true"><use href="#i-plus" /></svg></summary>
+                        <p>Not without advice. The lists show medicines doctors commonly use. Many need a prescription, and the right one depends on you.</p>
+                    </details>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="nav-logo"><span class="logo-icon"><i class="fa-solid fa-heart-pulse"></i></span>
-                        MediSense<span class="accent">AI</span></div>
-                    <p>AI-powered disease prediction and health information platform. Not a substitute for professional
-                        medical advice.</p>
-                    <div class="social-links">
-                        <a href="https://github.com/Vedantsg23" target="_blank"><i class="fa-brands fa-github"></i></a>
-                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <a href="#home">Home</a>
-                    <a href="#predict">Symptom Checker</a>
-                    <a href="#diseases">Disease Library</a>
-                    <a href="#medicines">Medicine Guide</a>
-                    <a href="#about">About</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Resources</h4>
-                    <a href="https://www.who.int" target="_blank">World Health Organization</a>
-                    <a href="https://www.cdc.gov" target="_blank">CDC</a>
-                    <a href="https://medlineplus.gov" target="_blank">MedlinePlus</a>
-                    <a href="https://www.nih.gov" target="_blank">NIH</a>
-                </div>
-                <div class="footer-legal">
-                    <h4>Legal</h4>
-                    <p>This tool is for educational and informational purposes only. MediSense AI does not provide
-                        medical diagnoses. Always consult a licensed physician.</p>
-                    <p style="margin-top:8px;">© 2024 MediSense AI by Vedant SG. MIT License.</p>
-                </div>
+    <footer class="footer" id="contact">
+        <div class="footer-top">
+            <div class="footer-cta">
+                <p class="footer-q">Feeling unwell for more than a day?</p>
+                <p class="footer-a">Talk to a doctor.</p>
+                <button class="line-link line-link--light" type="button" data-open-chat>Ask the assistant <svg><use href="#i-up" /></svg></button>
+            </div>
+            <ul class="footer-nav">
+                <li><a href="#home">Home<sup>01</sup></a></li>
+                <li><a href="#check">Check<sup>02</sup></a></li>
+                <li><a href="#library">Library<sup>03</sup></a></li>
+                <li><a href="#medicines">Medicines<sup>04</sup></a></li>
+                <li><a href="#faq">FAQ<sup>05</sup></a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-word" aria-hidden="true">MEDISENSE</p>
+            <div class="footer-legal">
+                <p>For learning only. Not medical advice.</p>
+                <p>© 2026 MediSense AI. MIT License.</p>
+                <p>Built by <a href="https://github.com/Vedantsg23" target="_blank" rel="noopener">Vedant Gadage</a></p>
             </div>
         </div>
     </footer>
 
-    <!-- ===== AI CHATBOT ===== -->
-    <div class="chatbot-widget" id="chatbotWidget">
+    <!-- ===== ASSISTANT ===== -->
+    <div class="chatbot-widget" id="chatbotWidget" role="dialog" aria-modal="false" aria-labelledby="chatTitle">
         <div class="chatbot-header">
-            <div class="chatbot-info">
-                <div class="chatbot-avatar"><i class="fa-solid fa-robot"></i></div>
-                <div>
-                    <strong>MediSense AI Assistant</strong>
-                    <span class="bot-status"><span class="status-dot"></span> Online</span>
-                </div>
+            <div>
+                <strong id="chatTitle">MediSense assistant</strong>
+                <span class="bot-status"><span class="status-dot"></span> Answers in plain words</span>
             </div>
-            <button class="chatbot-close" id="chatbotClose"><i class="fa-solid fa-xmark"></i></button>
+            <button class="chatbot-close" id="chatbotClose" type="button" aria-label="Close the assistant"><svg><use href="#i-x" /></svg></button>
         </div>
         <div class="chatbot-messages" id="chatMessages">
             <div class="chat-msg bot">
-                <div class="msg-avatar"><i class="fa-solid fa-robot"></i></div>
                 <div class="msg-bubble">
-                    <p>👋 Hi! I'm your MediSense AI health assistant. I can help you with:</p>
-                    <ul>
-                        <li>Understanding diseases and symptoms</li>
-                        <li>Medicine information and safety</li>
-                        <li>General health & wellness tips</li>
-                        <li>Interpreting your diagnosis results</li>
-                    </ul>
-                    <p>What would you like to know?</p>
+                    <p>Hi, I’m the MediSense assistant. Ask me about a condition, a symptom or a medicine. I explain things in plain words, but I’m not a doctor.</p>
                 </div>
             </div>
             <div class="quick-replies" id="quickReplies">
-                <button class="quick-reply" onclick="sendQuickReply('What diseases can you predict?')">What diseases can
-                    you predict?</button>
-                <button class="quick-reply" onclick="sendQuickReply('How accurate is the prediction?')">How accurate is
-                    it?</button>
-                <button class="quick-reply" onclick="sendQuickReply('How do I use this tool?')">How do I use this
-                    tool?</button>
-                <button class="quick-reply" onclick="sendQuickReply('What medicines should I avoid mixing?')">Medicine
-                    interactions?</button>
+                <button class="quick-reply" type="button" data-quick="What can MediSense check?">What can MediSense check?</button>
+                <button class="quick-reply" type="button" data-quick="How accurate is the prediction?">How accurate is it?</button>
+                <button class="quick-reply" type="button" data-quick="Which medicines should I not take together?">Medicine interactions</button>
             </div>
         </div>
         <div class="chatbot-input-area">
-            <textarea id="chatInput" placeholder="Ask about symptoms, diseases, medicines..." rows="1"></textarea>
-            <button class="chat-send-btn" id="chatSendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+            <label class="sr-only" for="chatInput">Message the assistant</label>
+            <textarea id="chatInput" placeholder="Ask about a symptom or medicine" rows="1"></textarea>
+            <button class="chat-send-btn" id="chatSendBtn" type="button" aria-label="Send"><svg><use href="#i-up" /></svg></button>
         </div>
     </div>
-    <button class="chatbot-toggle" id="chatbotToggle">
-        <i class="fa-solid fa-robot" id="chatToggleIcon"></i>
-        <span class="chat-badge" id="chatBadge">1</span>
+    <button class="chatbot-toggle" id="chatbotToggle" type="button" aria-controls="chatbotWidget" aria-expanded="false">
+        <span class="toggle-dot" aria-hidden="true"></span>
+        <span id="chatToggleText">Ask MediSense</span>
+        <span class="chat-badge" id="chatBadge" aria-hidden="true">1</span>
     </button>
 
     <script src="{{ url_for('static', filename='js/data.js') }}"></script>
